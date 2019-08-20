@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import  {Switch}  from 'react-router-dom';
 
 
+
 import Toolbar from './Components/Toolbar/Toolbar';
 import Login from './Components/Login/Login';
-import Reg from "./Components/Reg/Reg";
+import Reg from "./Components/Registration/Reg";
 import './App.css';
+import Home from './Components/Home/Home';
 
 class App extends Component{
 
@@ -32,6 +34,7 @@ class App extends Component{
           <Toolbar classScroll = {this.state.scrolled ? "scrolled":"toolbar"} drawerClickHandler={this.drawerToggleClickHandler}/>  
 
           <Switch>
+            <Route exact path = "/" component = {Home}/> 
             <Route path = "/login" component = {Login}/>
             <Route path = "/registration" component = {Reg}/>
           </Switch>

@@ -12,6 +12,10 @@ const toolbar = props => (
             <div className="toolbar_logo">
                 <Link to = {'/'}> Filimon-Booking </Link>
             </div>
+            <div className="search">
+                        <input type="text" className="searchInput"/>
+                        <input type="submit" value="поиск" className="searchBtn"/>
+            </div>
             <div className="spacer"/>
             <div className="toolbar_navigation_items">
                  <ul className = "mainList">

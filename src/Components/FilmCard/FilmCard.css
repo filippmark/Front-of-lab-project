@@ -1,0 +1,44 @@
+.filmCard{
+    height: auto;
+    margin: 5px;
+    flex-basis: 250px; 
+}
+
+.filmPoster{
+    padding-top: 10px;
+    width: 100%;
+    height: 80%;
+}
+
+.filmPoster img{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transition: top ease-in-out 1s;
+    border: 1px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.filmPoster img:hover{
+    top: -10px;
+}
+
+
+.filmName{
+    height: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.filmName div{
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,53 @@
+.filmCatalog{
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.upload{
+    width: 100%;
+    height: 200px;
+}
+
+.uploadBtn{
+    width: 0;
+    height: 0;
+    border: 100px solid transparent;
+    border-bottom-color:  rgb(37, 13, 173);
+    position: relative;
+    top: -100px;
+    margin: 0 auto;
+    transition: transform .8s ease-in-out;
+    cursor: pointer;
+}
+.uploadBtn:after {
+    content: '';
+    position: absolute;
+    left: -100px;
+    top: 100px;
+    width: 0;
+    height: 0;
+    border: 100px solid transparent;
+    border-top-color:  rgb(37, 13, 173);
+}
+
+
+@media (min-width: 901px) {
+    .filmCard{
+        float: left;
+        width: 15%;
+    }
+}
+
+@media (max-width: 900px) {
+    .filmCard{
+        float: left;
+        width: 25%;
+    }
+}
+
+@media (max-width: 600px) {
+    .filmCard{
+        float: left;
+        width: 45%;
+    }
+}

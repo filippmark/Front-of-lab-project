@@ -1,7 +1,7 @@
 .toolbar{
     width: 100%;
     background: rgb(37, 13, 173);
-    height: 56px;
+    height: 70px;
     z-index: 100;
 }
 
@@ -49,7 +49,31 @@
 }
 
 
+.search{
+    width: 20%;
+    display: flex;
+    align-items: center;
+}
 
+.search .searchInput{
+    padding: 0px;
+    margin: 0px;
+    height: 2rem;
+    margin-left: 5px;
+}
+
+
+.search .searchBtn{
+    width: 70px;
+    padding: 0.5rem 0;
+    border: 1px solid rgb(37, 13, 173);
+    border-radius: 4px;
+    box-sizing: border-box;
+    
+    margin: 0px;
+    margin-left: 5px;
+    resize: vertical;
+}
 
 
 

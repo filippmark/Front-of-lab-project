@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import "./Login.css"
-import { DEFAULT_ECDH_CURVE } from 'tls';
 
 class Login extends Component{
 
     
     state = {
-        userName: "",
+        email: "",
         password: ""
     }
 
@@ -20,8 +20,23 @@ class Login extends Component{
 
     handleSubmit = (event) =>{
         event.preventDefault();
-
-        console.log(this.state);
+        
+        axios.post("http://localhost:8080/login",
+            this.state
+            )
+            .then(function(res){
+                console.log(res);
+                if (res.status === 200){
+                    console.log(res);
+                    this.props.history.push('/');
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+               /* let errorDiv = document.getElementById("errorDiv");
+                console.log(error.response);
+                errorDiv.innerHTML = error.response.data;*/
+            });
     }
 
     render(){
@@ -31,10 +46,11 @@ class Login extends Component{
                 <form>
                     <label> Ваш email </label>
                     <div>
-                        <input type = "text" id = "email" name = "userName"  onChange = {this.handleChange} required/>
+                        <input type = "text" id = "email" name = "email"  onChange = {this.handleChange} required/>
                     </div>
                     <label> Пароль </label>
                     <input type ="password" id = "password" name = "password" onChange = {this.handleChange} required/>
+                    <div className="err" id="errorDiv"/>
                     <input type = "submit" id = "btn" value = "Войти" onClick = {this.handleSubmit}/>
                 </form>
             </div>
