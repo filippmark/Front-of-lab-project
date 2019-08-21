@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 
 import "./FilmCard.css";
 
@@ -7,18 +8,23 @@ class FilmCard extends Component{
 
     }
 
+    
+
     render(){
         return(
             <div className="filmCard">
                 <div className="filmPoster">    
-                    <a href="onliner.by">
-                        <img src="./posters/1.jpg" alt="lol"/>
-                    </a>
+                    <Link to={{
+                        pathname: `/filmCatalog/${this.props.data.original_title.split(" ").join("")}`,
+                        state: this.props.data
+                    }}>
+                        <img src={`http://image.tmdb.org/t/p/w342/${this.props.data.poster_path}`} alt={this.props.data.title}/>
+                    </Link>
                 </div>
                 <div className="filmName">     
                     <div>
                             <a href="lolol">
-                                Hobs asd Shaw 
+                                {this.props.data.title}
                             </a>     
                     </div>
                 </div>

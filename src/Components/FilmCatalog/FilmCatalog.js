@@ -10,11 +10,14 @@ class FilmCatalog extends Component{
 
     render(){
         return(
-            <div>
                 <div className = "filmCatalog">
-                 
+                    {
+                        this.props.data.map((element) => {
+                            console.log(element);
+                            return <FilmCard data={element} key={element.id} />
+                        })
+                    }
                 </div>
-            </div>
                 
         )
     }

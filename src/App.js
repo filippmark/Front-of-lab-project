@@ -9,6 +9,7 @@ import Login from './Components/Login/Login';
 import Reg from "./Components/Registration/Reg";
 import './App.css';
 import Home from './Components/Home/Home';
+import FilmPage from './Components/FilmPage/FilmPage';
 
 class App extends Component{
 
@@ -37,6 +38,7 @@ class App extends Component{
             <Route exact path = "/" component = {Home}/> 
             <Route path = "/login" component = {Login}/>
             <Route path = "/registration" component = {Reg}/>
+            <Route path = "/filmCatalog/:film" component = {FilmPage}/>
           </Switch>
         </div>
       </Router>

@@ -1,0 +1,42 @@
+.filmPage{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    margin: 90px auto;
+}
+
+.leftPart{
+    width: 70%;
+}
+
+.rightPart{
+    width: 30%;
+}
+
+
+.filmPic img{
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    box-shadow: 6px 16px 13px -2px rgba(0,0,0,0.64);
+}
+
+.filmDescription{
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.filmPic {
+    height: 80%; 
+}
+
+.filmDetails{
+    margin-top: 20px;
+    height: 200px;
+    background: rgb(207, 207, 209);
+}
+
+
+@media (max-width: 1000px) {
+
+}

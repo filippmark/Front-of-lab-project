@@ -3,6 +3,8 @@
     background: rgb(37, 13, 173);
     height: 70px;
     z-index: 100;
+    position: fixed;
+    top: 0;
 }
 
 .toolbar_navigation{
