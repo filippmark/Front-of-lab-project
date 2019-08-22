@@ -1,39 +1,72 @@
 .filmPage{
-    width: 70%;
-    height: 100%;
-    display: flex;
-    margin: 90px auto;
-}
-
-.leftPart{
-    width: 70%;
-}
-
-.rightPart{
-    width: 30%;
-}
-
-
-.filmPic img{
-    border-radius: 10px;
-    height: 100%;
     width: 100%;
-    box-shadow: 6px 16px 13px -2px rgba(0,0,0,0.64);
+    height: 100%;
+}
+
+.mainImg{
+    margin-top: 70px;
+    background-position: 50% 50%;
+    background-size: cover;
+    height: calc(100vh - 70px);
+}
+
+
+.filmDetails{
+    height: 70%;
+    width: 1000px;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.filmPagePoster{
+    width: 300px;
+    height: 100%;
+}
+
+.filmPagePoster img{
+    width: 300px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.filmPagePoster .buyTickets{
+    height: 50px;
+    width: 300px;
+    background: rgb(23, 6, 117);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.buyTickets div{
+    margin: 0 auto;
+}
+
+.filmPagePoster .buyTickets:hover{
+    background: #4CAF50;
 }
 
 .filmDescription{
-    box-sizing: border-box;
-    padding: 5px;
+    color: white;
+    width: 700px;
+    margin-top: 0%;
+    padding-left: 50px;
 }
 
-.filmPic {
-    height: 80%; 
+.filmDescription h1{
+    margin-top: 0; 
 }
 
-.filmDetails{
-    margin-top: 20px;
-    height: 200px;
-    background: rgb(207, 207, 209);
+
+.filmDescription article{
+    margin-top: 10%;
 }
 
 

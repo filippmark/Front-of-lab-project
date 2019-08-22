@@ -1,0 +1,27 @@
+.adminPage{
+    width: 90%;
+    height: 800px;
+    margin: 100px auto;
+    background: white;
+}
+
+.addMovie, .addCinema, .addShow{
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    height: 60%;
+    width: 60%;
+    margin: 50px auto;
+}
+
+.addCinema{
+    display:flex;
+}
+
+.addCinema div form{
+    margin: 20px;
+}
+
+.addMovie form{
+    margin: 20px;
+}
+

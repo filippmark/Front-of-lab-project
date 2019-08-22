@@ -10,6 +10,7 @@ import Reg from "./Components/Registration/Reg";
 import './App.css';
 import Home from './Components/Home/Home';
 import FilmPage from './Components/FilmPage/FilmPage';
+import Admin from './Components/Admin/Admin';
 
 class App extends Component{
 
@@ -36,6 +37,7 @@ class App extends Component{
 
           <Switch>
             <Route exact path = "/" component = {Home}/> 
+            <Route path = "/admin"  component = {Admin}/>
             <Route path = "/login" component = {Login}/>
             <Route path = "/registration" component = {Reg}/>
             <Route path = "/filmCatalog/:film" component = {FilmPage}/>

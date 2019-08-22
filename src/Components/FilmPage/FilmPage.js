@@ -18,23 +18,27 @@ class FilmPage extends Component{
     render(){
         return(
             <div className="filmPage">
-                <div className="leftPart">
-                    <div className="filmDescription">
-                        <h1>
-                            {this.state.data.title}
-                        </h1>
-
-                        <p>
-                            {this.state.data.overview}    
-                        </p>
-                    </div>
-                </div>
-                <div className="rightPart">
-                    <div className="filmPic">
-                        <img src={`http://image.tmdb.org/t/p/original/${this.state.data.poster_path}`}/>
-                    </div>
+                <div className="mainImg" style={{backgroundImage: ` linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),
+                url(http://image.tmdb.org/t/p/original/${this.state.data.backdrop_path})`}}>
                     <div className="filmDetails">
-                       
+                        <div className="filmPagePoster">
+                            <img src={`http://image.tmdb.org/t/p/original/${this.state.data.poster_path}`} alt={this.state.data.title}/>    
+                            <div className="buyTickets">
+                                <div>
+                                    Купить билет
+                                </div>
+                            </div>
+                        </div>
+                        <div className="filmDescription">
+                                <h1> {this.state.data.title} </h1>
+                                <h2 className="rating">
+                                    {`Рейтинг фильма: ${this.state.data.vote_average}`}
+                                </h2>
+                                <article>
+                                    <h2> Обзор: </h2>
+                                    {this.state.data.overview}
+                                </article>
+                        </div>
                     </div>
                 </div>
             </div>
