@@ -1,0 +1,9 @@
+.place{
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+}
+
+.place div{
+    padding: 10px;
+}

@@ -8,20 +8,33 @@
 .addMovie, .addCinema, .addShow{
     border: 2px solid #ccc;
     border-radius: 10px;
-    height: 60%;
     width: 60%;
     margin: 50px auto;
 }
 
 .addCinema{
     display:flex;
+    width: 60%;
 }
 
 .addCinema div form{
     margin: 20px;
 }
 
-.addMovie form{
-    margin: 20px;
+.addMovie{
+    box-sizing: border-box;
+    padding: 20px;
 }
 
+.cashPlacesWrapper{
+    width: 30%;
+    margin-top: 20px;
+}
+
+.cashPlaces{
+    overflow-y: scroll;
+    height:80%;
+    border: 1px solid #cccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}

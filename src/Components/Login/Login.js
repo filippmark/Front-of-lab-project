@@ -51,7 +51,9 @@ class Login extends Component{
                     <label> Пароль </label>
                     <input type ="password" id = "password" name = "password" onChange = {this.handleChange} required/>
                     <div className="err" id="errorDiv"/>
-                    <input type = "submit" id = "btn" value = "Войти" onClick = {this.handleSubmit}/>
+                    <div className="inWrapper">
+                        <input type = "submit" id = "btn" value = "Войти" onClick = {this.handleSubmit}/>
+                    </div>
                 </form>
             </div>
         )    

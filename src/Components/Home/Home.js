@@ -51,6 +51,31 @@ class Home extends Component{
         
         return(
             <div className="homePage">
+                <div className="filter">
+                    <div  className = "town">
+                        <label> Город: </label>
+                        <input type="text"/>
+                    </div>
+                    <div className="cinema">
+                        <label> Кинотеатр: </label>
+                        <input type="text"/>
+                    </div>
+                    <div className="date">
+                        <label> День: </label>
+                        <input type="text"/>
+                    </div>
+                    <div className="name">
+                        <label> Название фильма: </label>
+                        <input type="text"/>
+                    </div>
+                    <div className="amount">
+                        <label> Количество мест </label>   
+                        <input type="text"/>
+                    </div>
+                    <div className="btn">
+                        <input type="submit" value="поиск"/>
+                    </div>
+                </div>
                 <FilmCatalog data={this.state.data.slice()}/>
                 <div className="uploadBtn" id="uploadBtn" onClick={this.uploadFilmsHandle}>
                     <div>
