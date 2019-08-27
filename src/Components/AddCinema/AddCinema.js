@@ -93,7 +93,7 @@ class AddCinema extends Component{
                     <input type="text" name="cinemaName" onChange={this.handleChange}/>
                     <input type="submit" value="Добавить кинотеатр" className="addCinemaBtn" onClick={this.addCinemaHandler}/>   <br/>
                     <label> Название зала </label>
-                    <input type="text" name="hallName" /> 
+                    <input type="text" name="hallName" onChange={this.handleChange}/> 
                     <input type="submit" name="addHall" value="Добавить зал" onClick={this.addHallHandler}/>                    
                 </form>    
             </div>

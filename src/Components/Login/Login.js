@@ -1,15 +1,30 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import "./Login.css"
+import { Redirect } from 'react-router-dom';
+
+import "./Login.css";
 
 class Login extends Component{
 
     
     state = {
         email: "",
-        password: ""
+        password: "",
+        logged: false,
+        admin: false,
     }
 
+    componentDidMount(){
+        let logged = window.localStorage.getItem("logged");
+        console.log(logged);
+        if (logged !== null){
+            let obj = JSON.parse(logged);
+            this.setState({
+                logged: true,
+                admin: obj.user.isAdmin
+            });
+        }
+    }
 
     handleChange = (event) => {
         const {name, value} = event.target;
@@ -27,8 +42,9 @@ class Login extends Component{
             .then(function(res){
                 console.log(res);
                 if (res.status === 200){
-                    console.log(res);
-                    this.props.history.push('/');
+                    let obj = res.data;
+                    console.log(obj);
+                    window.localStorage.setItem("logged", JSON.stringify(obj));
                 }
             })
             .catch(function (error) {
@@ -40,7 +56,6 @@ class Login extends Component{
     }
 
     render(){
-        
         return(
             <div className = "login">
                 <form>
@@ -56,7 +71,8 @@ class Login extends Component{
                     </div>
                 </form>
             </div>
-        )    
+        )
+        
     }
 }
 

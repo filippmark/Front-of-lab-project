@@ -27,7 +27,7 @@ class AddShow extends Component{
     addShowToServerHandler = (event) => {
         event.preventDefault();
         const data = this.state;    
-        axios.post("http://localhost:8081/newShow", this.state)
+        axios.post("http://localhost:8080/newShow", this.state)
         .then((resp) => {
             console.log(resp);
         })
@@ -52,6 +52,13 @@ class AddShow extends Component{
         }
     }
 
+    clearPriceHandler = (event) =>{
+        event.preventDefault();
+        this.setState({
+            prices: []
+        });
+    }
+
     render(){
         return(
             <div className="addShow">
@@ -70,18 +77,19 @@ class AddShow extends Component{
                 </div>
                 <div className="prices">
                     <div className="adder">
-                        <select name="type">
+                        <select name="type" onChange={this.handleChange}>
                             <option> VIP </option>
                             <option> Basic</option>
                             <option> For pairs </option>
                         </select>
-                        <input type="text" name="price"/> 
+                        <input type="text" name="price" onChange={this.handleChange}/> 
                         <br/>
                         <input type="submit" value="добавить цену" onClick={this.addPriceHandler}/>
+                        <input type="submit" value="очистить" className="clear" onClick={this.clearPriceHandler}/>
                     </div>
                     <div className="cashPrice">
                        {this.state.prices.map((element) => {
-                           return <Price data = {element}/>
+                           return <Price data = {element} key = {element.price}/>
                        })}
                     </div>
                 </div>

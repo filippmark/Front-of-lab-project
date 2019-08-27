@@ -38,6 +38,11 @@
 .toolbar_navigation_items  li{
     padding: 0 0.5rem;
     box-sizing: padding-box;
+    color: white;
+}
+
+.out{
+    cursor: pointer;
 }
 
 .toolbar_navigation_items a {
@@ -78,13 +83,6 @@
 }
 
 
-
-.toolbar_navigation_items .subMenu li{
-    height: 56px;
-    border-bottom: 2px solid black;
-    display: flex;
-    align-items: center;
-}
 
 @media  (max-width: 1100px){
     .toolbar_navigation_items{

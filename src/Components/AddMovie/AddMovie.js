@@ -10,13 +10,11 @@ class AddMovie extends Component{
         description: "",
     }
 
-    componentDidMount(){
-        window.onchange = (e) => {
-            const {name, value} = e.target;
-            this.setState({
-                [name]: value
-            });
-        }
+    handleChange = (event) => {
+        const {name, value} = event.target;
+        this.setState({
+            [name]: value
+        });
     }
 
 
@@ -39,13 +37,13 @@ class AddMovie extends Component{
         return(
             <div className="addMovie">
                 <label> Название фильма</label>
-                <input type="text" name="filmName"/>
+                <input type="text" name="filmName" onChange={this.handleChange}/>
                 <label> Начало проката </label>
-                <input type="text" name="start" placeholder="YYYY-MM-DD"/>
+                <input type="text" name="start" placeholder="YYYY-MM-DD" onChange={this.handleChange}/>
                 <label> Конец проката</label>
-                <input type="text" name="end" placeholder="YYYY-MM-DD"/>
+                <input type="text" name="end" placeholder="YYYY-MM-DD" onChange={this.handleChange}/>
                 <label> Описание</label>
-                <textarea name="description"/>
+                <textarea name="description" onChange={this.handleChange}/>
                 <input type="submit" value="Добавить фильм" onClick={this.addFilm}/>
             </div>
         )

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 import "./Home.css";
 import FilmCatalog from '../FilmCatalog/FilmCatalog';
@@ -14,9 +15,11 @@ class Home extends Component{
         data: [],
         town: "",
         cinema: "",
+        day: "",
+        film: "",
+        amountPlaces: "",
         previous:"",
         variants: [],
-
     };
 
 
@@ -32,13 +35,50 @@ class Home extends Component{
         })
     }
 
+    searchHandler = (event) => {
+        event.preventDefault();
+        console.log("kekekk");
+        axios.post("http://localhost:8080/search", {
+            town: this.state.town,
+            cinema: this.state.cinema,
+            day: this.state.day,
+            film: this.state.film,
+            amount: this.state.amountPlaces
+        })
+        .then((resp) => {
+            console.log(resp);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
     variantClickHandler = (e) => {
         console.log(e.target.innerHTML);
         document.getElementById(e.target.id).parentElement.style.display ="none";
         const value = e.target.innerHTML;
+        console.log(e.target.id);
+        let name = e.target.id.slice(0, e.target.id.length - 2);
+        console.log(name);
+        this.setState({
+            [name]: value
+        });
         let input = document.getElementById(`in_${this.state.previous}`);
         console.log(input);
         input.value = value;
+    }
+
+    changeHandleWithouHints = (e) => {
+        let {name, value} = e.target;
+        if (this.state.previous !== ""){
+            document.getElementById(this.state.previous).style.display = "none";
+            this.setState({
+                variants: []
+            })
+        }
+        this.setState({
+            [name]: value
+        });
     }
 
 
@@ -105,58 +145,60 @@ class Home extends Component{
     
 
     render(){
-        
-        return(
-            <div className="homePage">
-                <div className="filter">
-                    <div  className = "town">
-                        <label> Город: </label>
-                        <input type="text" name="town" id="in_town" onChange={this.changeHandle}/>
-                        <div className="results" id="town">
-                            {this.state.variants.map(element => {
-                                return <Variant data={element.town} handler={this.variantClickHandler}/>
-                            })}
+        if (window.localStorage.getItem("logged") !== null){
+            return(
+                <div className="homePage">
+                    <div className="filter">
+                        <div  className = "town">
+                            <label> Город: </label>
+                            <input type="text" name="town" id="in_town" onChange={this.changeHandle}/>
+                            <div className="results" id="town">
+                                {this.state.variants.map(element => {
+                                    return <Variant data={element.town} handler={this.variantClickHandler} id = {"town_v"}/>
+                                })}
+                            </div>
+                        </div>
+                        <div className="cinema">
+                            <label> Кинотеатр: </label>
+                            <input type="text" name="cinema" id="in_cinema" onChange={this.changeHandle}/>
+                            <div className="results" id="cinema">
+                                {this.state.variants.map(element => {
+                                    return <Variant data={element.name} handler={this.variantClickHandler} id = {"cinema_v"}/>
+                                })}
+                            </div>
+                        </div>
+                        <div className="date">
+                            <label> День: </label>
+                            <input type="text" placeholder="YYYY-MM-DD" name="day" onChange={this.changeHandleWithouHints}/>
+                        </div>
+                        <div className="name">
+                            <label> Название фильма: </label>
+                            <input type="text" name="film" id="in_film" onChange={this.changeHandle}/>
+                            <div className="results" id="film">
+                                {this.state.variants.map(element => {
+                                    return <Variant data={element.name} handler={this.variantClickHandler} id = {"film_v"}/>
+                                })}
+                            </div>
+                        </div>
+                        <div className="amount">
+                            <label> Количество мест </label>   
+                            <input type="text" name="amountPlaces" onChange={this.changeHandleWithouHints}/>
+                        </div>
+                        <div className="btn">
+                            <input type="submit" value="поиск" onClick={this.searchHandler}/>
                         </div>
                     </div>
-                    <div className="cinema">
-                        <label> Кинотеатр: </label>
-                        <input type="text" name="cinema" id="in_cinema" onChange={this.changeHandle}/>
-                        <div className="results" id="cinema">
-                            {this.state.variants.map(element => {
-                                
-                                return <Variant data={element.name} handler={this.variantClickHandler}/>
-                            })}
+                    <FilmCatalog data={this.state.data.slice()}/>
+                    <div className="uploadBtn" id="uploadBtn" onClick={this.uploadFilmsHandle}>
+                        <div>
+                            upload
                         </div>
-                    </div>
-                    <div className="date">
-                        <label> День: </label>
-                        <input type="text" placeholder="YYYY-MM-DD"/>
-                    </div>
-                    <div className="name">
-                        <label> Название фильма: </label>
-                        <input type="text" name="film" id="in_film" onChange={this.changeHandle}/>
-                        <div className="results" id="film">
-                            {this.state.variants.map(element => {
-                                return <Variant data={element.name} handler={this.variantClickHandler}/>
-                            })}
-                        </div>
-                    </div>
-                    <div className="amount">
-                        <label> Количество мест </label>   
-                        <input type="text"/>
-                    </div>
-                    <div className="btn">
-                        <input type="submit" value="поиск"/>
                     </div>
                 </div>
-                <FilmCatalog data={this.state.data.slice()}/>
-                <div className="uploadBtn" id="uploadBtn" onClick={this.uploadFilmsHandle}>
-                    <div>
-                        upload
-                    </div>
-                </div>
-            </div>
-        )
+            )
+        }else{
+            return <Redirect to="/login"/>
+        }                
     }
 
 }
