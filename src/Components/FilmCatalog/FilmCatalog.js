@@ -13,7 +13,6 @@ class FilmCatalog extends Component{
                 <div className = "filmCatalog">
                     {
                         this.props.data.map((element) => {
-                            console.log(element);
                             return <FilmCard data={element} key={element.id} />
                         })
                     }

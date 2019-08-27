@@ -48,3 +48,24 @@
 .uploadBtn:hover{
     background: #4CAF50;
 }
+
+.results{
+    position: absolute;
+    display: none;
+    z-index: 1;
+}
+
+.results .variant{
+    background: white;
+    width: 200px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    top: -16px;
+    text-align: center;
+}
+
+.variant:hover{
+    background: #ccc;
+}

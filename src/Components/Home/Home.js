@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import "./Home.css";
 import FilmCatalog from '../FilmCatalog/FilmCatalog';
+import Variant from './Variant';
 
 class Home extends Component{
 
@@ -10,35 +11,19 @@ class Home extends Component{
         amount: 0,
         page: 0,
         totalPages: 0,
-        data: []
+        data: [],
+        town: "",
+        cinema: "",
+        previous:"",
+        variants: [],
+
     };
 
-    uploadFilmsHandle = () => {
-        
-        axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=77b3d8be3013c77ba5e037900d67013b&language=ru&page=${this.state.page + 1}`
-        )
-        .then((resp) => {
-            console.log(resp);
-            console.log(resp.data.results);
-            this.setState({data: this.state.data.concat(resp.data.results), amount: this.state.amount + resp.data.results.length, page: this.state.page + 1});
-            if (this.state.page === this.state.totalPages){
-                let el = document.getElementById("uploadBtn");
-                el.style.display = "none";
-            }
-                   
-        })
-        .catch((err) => {
-            console.error(err);  
-        })
-    
-    }
 
     componentDidMount(){
         axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=77b3d8be3013c77ba5e037900d67013b&language=ru&page=1',
         )
         .then((resp) => {
-            console.log(resp);
-            console.log(resp.data.results);
             this.setState({data: resp.data.results, amount: resp.data.results.length, page: 1});
             this.setState({totalPages: resp.data.total_pages});
         })
@@ -47,6 +32,78 @@ class Home extends Component{
         })
     }
 
+    variantClickHandler = (e) => {
+        console.log(e.target.innerHTML);
+        document.getElementById(e.target.id).parentElement.style.display ="none";
+        const value = e.target.innerHTML;
+        let input = document.getElementById(`in_${this.state.previous}`);
+        console.log(input);
+        input.value = value;
+    }
+
+
+    changeHandle = (e) => {
+        const {name, value} = e.target;
+        console.log(name);
+        if ((this.state.previous !== "") && (this.state.previous !== name)){
+            console.log("kek");
+            document.getElementById(this.state.previous).style.display = "none";
+            this.setState({
+                variants: []
+            })
+        }
+        if (value !== ""){
+            this.setState({
+                [name]: value
+            });
+            console.log(this.state.previous);
+            let element = document.getElementById(name);
+            element.style.display = "block";
+            axios.post(`http://localhost:8080/search/${name}`,
+                {
+                    value
+                }
+            )
+            .then((resp) => {
+                console.log(resp);
+                this.setState({
+                    variants: resp.data.variants,
+                    previous: name,
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+                this.setState({
+                    variants: [],
+                    previous: name,
+                })
+            })
+        }else{
+            this.setState({
+                variants: []
+            })
+        }
+    }
+    
+    
+    uploadFilmsHandle = () => {    
+        axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=77b3d8be3013c77ba5e037900d67013b&language=ru&page=${this.state.page + 1}`
+        )
+        .then((resp) => {
+            this.setState({data: this.state.data.concat(resp.data.results), amount: this.state.amount + resp.data.results.length, page: this.state.page + 1});
+            if (this.state.page === this.state.totalPages){
+                let el = document.getElementById("uploadBtn");
+                el.style.display = "none";
+            }
+            
+        })
+        .catch((err) => {
+            console.error(err);  
+        })
+    }
+
+    
+
     render(){
         
         return(
@@ -54,19 +111,35 @@ class Home extends Component{
                 <div className="filter">
                     <div  className = "town">
                         <label> Город: </label>
-                        <input type="text"/>
+                        <input type="text" name="town" id="in_town" onChange={this.changeHandle}/>
+                        <div className="results" id="town">
+                            {this.state.variants.map(element => {
+                                return <Variant data={element.town} handler={this.variantClickHandler}/>
+                            })}
+                        </div>
                     </div>
                     <div className="cinema">
                         <label> Кинотеатр: </label>
-                        <input type="text"/>
+                        <input type="text" name="cinema" id="in_cinema" onChange={this.changeHandle}/>
+                        <div className="results" id="cinema">
+                            {this.state.variants.map(element => {
+                                
+                                return <Variant data={element.name} handler={this.variantClickHandler}/>
+                            })}
+                        </div>
                     </div>
                     <div className="date">
                         <label> День: </label>
-                        <input type="text"/>
+                        <input type="text" placeholder="YYYY-MM-DD"/>
                     </div>
                     <div className="name">
                         <label> Название фильма: </label>
-                        <input type="text"/>
+                        <input type="text" name="film" id="in_film" onChange={this.changeHandle}/>
+                        <div className="results" id="film">
+                            {this.state.variants.map(element => {
+                                return <Variant data={element.name} handler={this.variantClickHandler}/>
+                            })}
+                        </div>
                     </div>
                     <div className="amount">
                         <label> Количество мест </label>   

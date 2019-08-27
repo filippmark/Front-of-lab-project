@@ -1,0 +1,20 @@
+.addShow{
+    display: flex;
+}
+
+.addShow .details{
+    width: 50%;
+}
+
+.addShow .prices{
+    padding: 10px;
+    width: 50%;
+}
+
+.cashPrice{
+    overflow-y: auto;
+    margin-top: 5px;
+    width: 100%;
+    height: 50%;
+    border: 1px solid #ccc;
+}
