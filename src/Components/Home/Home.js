@@ -37,14 +37,24 @@ class Home extends Component{
 
     searchHandler = (event) => {
         event.preventDefault();
-        console.log("kekekk");
-        axios.post("http://localhost:8080/search", {
+        console.log("-------------");
+        let obj = {
             town: this.state.town,
             cinema: this.state.cinema,
-            day: this.state.day,
+            date: this.state.day,
             film: this.state.film,
             amount: this.state.amountPlaces
-        })
+        }   
+        console.log(obj);
+        for (let key in obj){
+            console.log(key);
+            if (obj[key] === "")
+                delete obj[key];
+            else
+                obj[key] = obj[key].toLowerCase();
+        }
+        console.log(obj);
+        axios.post("http://localhost:8080/search", obj)
         .then((resp) => {
             console.log(resp);
         })

@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import "./AddShow.css";
 import Price from '../Price/Price';
-import { stat } from 'fs';
 
 class AddShow extends Component{
     state = {
@@ -11,7 +10,8 @@ class AddShow extends Component{
         cinema: "",
         hall: "",
         film: "",
-        date: "", 
+        date: "",
+        time: "", 
         type: "",
         price: "",
         prices: []
@@ -45,6 +45,10 @@ class AddShow extends Component{
         console.log(this.state);
         if ((this.state.type !== "") && (this.state.price !== "")){
             console.log("lol_kekekek");
+            for (let i = 0; i < this.state.prices.length; i++){
+                if (this.state.prices[i].type === this.state.type)
+                    return alert("Цена для данного типа уже есть.")
+            }
             this.setState({prices: this.state.prices.concat({
                 type: this.state.type,
                 price: this.state.price
@@ -73,6 +77,8 @@ class AddShow extends Component{
                     <input type="text" name="film" onChange={this.handleChange}/> 
                     <label> Дата </label>
                     <input type="text" name="date" placeholder="YYYY-MM-DD" onChange={this.handleChange}/>
+                    <label> Время </label>
+                    <input type="text" name="time" placeholder="HH:MM" onChange={this.handleChange}/>
                     <input type="submit" value="добавить показ" onClick={this.addShowToServerHandler} />
                 </div>
                 <div className="prices">

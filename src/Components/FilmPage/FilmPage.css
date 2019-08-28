@@ -69,6 +69,17 @@
     margin-top: 10%;
 }
 
+.ticketsWrapper{
+    height: 100vh;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
 
 @media (max-width: 1000px) {
 

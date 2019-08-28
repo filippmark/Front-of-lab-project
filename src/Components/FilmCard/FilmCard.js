@@ -23,9 +23,12 @@ class FilmCard extends Component{
                 </div>
                 <div className="filmName">     
                     <div>
-                            <a href="lolol">
-                                {this.props.data.title}
-                            </a>     
+                        <Link to={{
+                            pathname: `/filmCatalog/${this.props.data.original_title.split(" ").join("")}`,
+                            state: this.props.data
+                        }}>
+                            {this.props.data.title}
+                        </Link>   
                     </div>
                 </div>
             </div>

@@ -1,18 +1,39 @@
 import React, {Component} from 'react';
 
 import './FilmPage.css'
+import Schedule from '../Schedule/Schedule';
+import axios from 'axios';
 
 class FilmPage extends Component{
 
     state = {
         filmName: "",
-        data: ""
+        data: {},
+        tickets: []
     }
 
     componentDidMount(){
         this.setState({filmName: this.props.match.params.film});
         this.setState({data: this.props.location.state});
+        console.log(this.state);
+        axios.post( `http://localhost:8080/tickets`,
+            {value: this.props.location.state.title}
+        )
+        .then((resp) => {
+            console.log(resp.data);
+            this.setState({
+                tickets: resp.data.data
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        console.log();
     }
+
+    bookTicketHandler = () => {
+        window.scrollBy(0, window.innerHeight - 70);
+    }    
 
 
     render(){
@@ -23,9 +44,9 @@ class FilmPage extends Component{
                     <div className="filmDetails">
                         <div className="filmPagePoster">
                             <img src={`http://image.tmdb.org/t/p/original/${this.state.data.poster_path}`} alt={this.state.data.title}/>    
-                            <div className="buyTickets">
+                            <div className="buyTickets" onClick={this.bookTicketHandler}>
                                 <div>
-                                    Купить билет
+                                    Забронировать билет
                                 </div>
                             </div>
                         </div>
@@ -40,6 +61,13 @@ class FilmPage extends Component{
                                 </article>
                         </div>
                     </div>
+                </div>
+                <div className="ticketsWrapper">
+                    {
+                        this.state.tickets.map((element) => {
+                            return <Schedule data={element}/>
+                        })
+                    }
                 </div>
             </div>
         )
