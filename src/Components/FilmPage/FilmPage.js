@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import './FilmPage.css'
 import Schedule from '../Schedule/Schedule';
+import Slider from '../Slider/Slider';
 import Date from '../Date/Date';
 import axios from 'axios';
 
@@ -84,9 +85,7 @@ class FilmPage extends Component{
                     </div>
                 </div>
                 <div className="ticketsWrapper">
-                    <div className="datesWrapper">
-                      
-                    </div>
+                    <Slider/>
                     {
                         this.state.tickets.map((element) => {
                             return <Schedule data={element}/>

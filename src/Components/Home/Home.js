@@ -177,7 +177,7 @@ class Home extends Component{
                                 })}
                             </div>
                         </div>
-                        <div className="date">
+                        <div className="dateSearch">
                             <label> День: </label>
                             <input type="text" placeholder="YYYY-MM-DD" name="day" onChange={this.changeHandleWithouHints}/>
                         </div>
