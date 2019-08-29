@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import './FilmPage.css'
 import Schedule from '../Schedule/Schedule';
+import Date from '../Date/Date';
 import axios from 'axios';
 
 class FilmPage extends Component{
@@ -9,31 +10,51 @@ class FilmPage extends Component{
     state = {
         filmName: "",
         data: {},
-        tickets: []
+        tickets: [],
     }
 
     componentDidMount(){
         this.setState({filmName: this.props.match.params.film});
         this.setState({data: this.props.location.state});
-        console.log(this.state);
-        axios.post( `http://localhost:8080/tickets`,
+        axios.post("http://localhost:8080/filmDates", 
             {value: this.props.location.state.title}
         )
         .then((resp) => {
-            console.log(resp.data);
+            console.log(resp);
             this.setState({
-                tickets: resp.data.data
-            });
+                start: resp.data.start,
+                end: resp.data.end
+            })
+            this.availableTickets(resp.data.start);
         })
         .catch((err) => {
             console.log(err);
         })
+
         console.log();
     }
 
     bookTicketHandler = () => {
         window.scrollBy(0, window.innerHeight - 70);
     }    
+
+    availableTickets = (date) => {
+        axios.post( "http://localhost:8080/tickets",
+            {
+                movie: this.props.location.state.title,
+                date: date
+            }
+            )
+            .then((resp) => {
+                console.log(resp.data);
+                this.setState({
+                    tickets: resp.data.data
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    };
 
 
     render(){
@@ -63,6 +84,9 @@ class FilmPage extends Component{
                     </div>
                 </div>
                 <div className="ticketsWrapper">
+                    <div className="datesWrapper">
+                      
+                    </div>
                     {
                         this.state.tickets.map((element) => {
                             return <Schedule data={element}/>
