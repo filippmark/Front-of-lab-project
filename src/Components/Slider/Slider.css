@@ -1,23 +1,30 @@
 .slider{
-    margin: 0 auto;
+    width: 80%;
     display: flex;
+    margin: 0;
     align-items: center;
-    position: relative;
     overflow: hidden;
-
 }
 
 .sliderDateWrapper{
     width: 100%;
     display: flex;
     margin: 0 auto;
-    position: absolute;
     transition: all 0.5s ease-out;
-    z-index: -5;
 }
 
 .leftArrow, .rightArrow{
     width: 120px;
     height: 120px;
+}
 
+.leftArrowWrapper{
+    width: 120px;
+    z-index: 10;
+}
+
+.sliderWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
