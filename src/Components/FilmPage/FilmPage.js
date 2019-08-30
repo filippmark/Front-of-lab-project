@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import './FilmPage.css'
 import Schedule from '../Schedule/Schedule';
-import Date from '../Date/Date';
+import Slider from '../Slider/Slider';
 import axios from 'axios';
 
 class FilmPage extends Component{
@@ -11,6 +11,7 @@ class FilmPage extends Component{
         filmName: "",
         data: {},
         tickets: [],
+        dates: []
     }
 
     componentDidMount(){
@@ -21,11 +22,12 @@ class FilmPage extends Component{
         )
         .then((resp) => {
             console.log(resp);
+            this.availableTickets(resp.data.start);
             this.setState({
                 start: resp.data.start,
-                end: resp.data.end
+                end: resp.data.end,
+                dates: resp.data.dates
             })
-            this.availableTickets(resp.data.start);
         })
         .catch((err) => {
             console.log(err);
@@ -39,6 +41,7 @@ class FilmPage extends Component{
     }    
 
     availableTickets = (date) => {
+        console.log(date);
         axios.post( "http://localhost:8080/tickets",
             {
                 movie: this.props.location.state.title,
@@ -55,7 +58,6 @@ class FilmPage extends Component{
                 console.log(err);
             })
     };
-
 
     render(){
         return(
@@ -84,12 +86,11 @@ class FilmPage extends Component{
                     </div>
                 </div>
                 <div className="ticketsWrapper">
-                    <div className="datesWrapper">
-                      
-                    </div>
+                    <Slider dates={this.state.dates} changeDate={this.availableTickets}/>
                     {
                         this.state.tickets.map((element) => {
-                            return <Schedule data={element}/>
+                            console.log(element);
+                            return <Schedule data={element} key = {element.cinema._id}/>
                         })
                     }
                 </div>

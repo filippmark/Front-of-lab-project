@@ -23,8 +23,7 @@ class Schedule extends Component{
                <div className="timeVariants">
                     {
                         this.props.data.dates.map((element) => {
-                            console.log(element);
-                            return <Time data={element}/>;
+                            return <Time data={element} key={element.date}/>;
                         })
                     }
                 </div>
