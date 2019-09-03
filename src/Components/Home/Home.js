@@ -155,7 +155,6 @@ class Home extends Component{
     
 
     render(){
-        if (window.localStorage.getItem("logged") !== null){
             return(
                 <div className="homePage">
                     <div className="filter">
@@ -206,9 +205,7 @@ class Home extends Component{
                     </div>
                 </div>
             )
-        }else{
-            return <Redirect to="/login"/>
-        }                
+                    
     }
 
 }

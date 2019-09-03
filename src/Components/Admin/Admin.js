@@ -4,9 +4,10 @@ import { Redirect } from 'react-router-dom';
 
 
 import "./Admin.css";
-import AddCinema from '../AddCinema/AddCinema';
-import AddMovie from '../AddMovie/AddMovie';
-import AddShow from '../AddShow/AddShow';
+import CinemaDetails from '../CinemaDetails/CinemaDetails';
+import MovieDetails from '../MovieDetails/MovieDetails';
+import ShowDetails from '../ShowDetails/ShowDetails';
+import Scheme from '../Scheme/Scheme';
 
 class Admin extends Component{
     state = {
@@ -54,9 +55,10 @@ class Admin extends Component{
                         <input type="text" name="email" onChange={this.handleChange}/>
                         <input type="submit" value="Сделать администратором" onClick={this.addNewAdmin}/>
                     </div>
-                    <AddCinema/>
-                    <AddMovie/>
-                    <AddShow/>
+                    <CinemaDetails/>
+                    <Scheme/>
+                    <MovieDetails/>
+                    <ShowDetails/>
                 </div>
             )
     }

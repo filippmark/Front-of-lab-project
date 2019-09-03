@@ -12,31 +12,7 @@
     margin: 50px auto;
 }
 
-.addCinema{
-    display:flex;
-    width: 60%;
-}
-
-.addCinema div form{
-    margin: 20px;
-}
-
-.addMovie, .addShow, .addAdmin{
+.addMovie, .addShow, .addAdmin, .addCinema{
     box-sizing: border-box;
     padding: 20px;
-}
-
-
-
-.cashPlacesWrapper{
-    width: 30%;
-    margin-top: 20px;
-}
-
-.cashPlaces{
-    overflow-y: scroll;
-    height:80%;
-    border: 1px solid #cccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
 }
