@@ -1,0 +1,7 @@
+.rowOfSeats{
+    padding: 0;
+    width: fit-content;
+    margin: 3px auto;
+    list-style: none;
+    display: flex;
+}

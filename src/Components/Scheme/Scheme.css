@@ -1,0 +1,67 @@
+.schemeWrapper{
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    width: 60%;
+    margin: 50px auto;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.scheme{
+    height: 500px;
+    width: 90%;
+    border: 2px solid #ccc; 
+    overflow: auto;
+    margin: 10px auto;
+}
+
+.schemeList{
+    list-style: none;
+    padding: 0px;
+}
+
+.controllers{
+    width: 90%;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.screenWrapper{
+    width: 80%;
+    height: 70px;
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.screen{
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    width: 91px;
+    margin: 0 auto;
+    height: 100%;
+    font-size: 2rem;
+}
+
+.rowsWrapper{
+    width: 90%;
+    height: 350px;
+    margin: 10px auto;
+    overflow: auto;
+}
+
+.addRowWrapper{
+    width: 300px;
+    display: flex;
+}
+
+.addRowBtn{
+    width: 100px;
+    height: 50px;
+    background: #4CAF50;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+}
+

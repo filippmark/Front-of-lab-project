@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import "./AddShow.css";
+import "./ShowDetails.css";
 import Price from '../Price/Price';
 
 class AddShow extends Component{
