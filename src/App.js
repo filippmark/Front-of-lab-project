@@ -11,6 +11,7 @@ import './App.css';
 import Home from './Components/Home/Home';
 import FilmPage from './Components/FilmPage/FilmPage';
 import Admin from './Components/Admin/Admin';
+import BookingPage from './Components/BookingPage/BookingPage';
 
 class App extends Component{
 
@@ -41,6 +42,7 @@ class App extends Component{
             <Route path = "/login" component = {Login}/>
             <Route path = "/registration" component = {Reg}/>
             <Route path = "/filmCatalog/:film" component = {FilmPage}/>
+            <Route path = "/reservation/:show" component = {BookingPage}/>
           </Switch>
         </div>
       </Router>

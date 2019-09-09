@@ -1,12 +1,30 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Seat.css';
 
-const Seat = (props) => {
-    return(
-        <li className={`seat ${props.data.type}`}>
+class Seat extends Component{
 
-        </li>
-    )
+
+    componentDidMount(){
+        let element = document.getElementById('seat');
+        element.onmousedown = this.mouseDownHandle;
+        element.onmousemove = this.mouseMoveHandle;
+    }
+    
+    mouseDownHandle = (event) => {
+        console.log('down');
+    }
+
+    mouseMoveHandle = (event) => {
+        console.log('move');
+    }
+
+    render(){
+        return(
+            <li className={`seat ${this.props.data.type}`} id={`seat`}>
+
+            </li>
+        )
+    }
 }
 
 export default Seat;

@@ -7,7 +7,6 @@ import "./Admin.css";
 import CinemaDetails from '../CinemaDetails/CinemaDetails';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import ShowDetails from '../ShowDetails/ShowDetails';
-import Scheme from '../Scheme/Scheme';
 
 class Admin extends Component{
     state = {
@@ -56,7 +55,6 @@ class Admin extends Component{
                         <input type="submit" value="Сделать администратором" onClick={this.addNewAdmin}/>
                     </div>
                     <CinemaDetails/>
-                    <Scheme/>
                     <MovieDetails/>
                     <ShowDetails/>
                 </div>

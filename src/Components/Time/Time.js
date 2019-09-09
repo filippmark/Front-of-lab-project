@@ -1,14 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Time.css';
 
 const Time = (props) => {
     return(
-        <div className="time">
-            <div>
-                {props.data.time}
+        <Link to={{pathname:`/reservation/${props.data.movie.split(" ").join("")}`, state: props.data}}>
+            <div className="time">
+                <div>
+                    {props.data.time}
+                </div>
             </div>
-        </div>
+        </Link>
+        
     );
 }
 
