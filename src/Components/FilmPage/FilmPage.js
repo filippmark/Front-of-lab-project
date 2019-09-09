@@ -89,7 +89,6 @@ class FilmPage extends Component{
                     <Slider dates={this.state.dates} changeDate={this.availableTickets}/>
                     {
                         this.state.tickets.map((element) => {
-                            console.log(element);
                             return <Schedule data={element} key = {element.cinema._id}/>
                         })
                     }

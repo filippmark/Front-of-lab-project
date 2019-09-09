@@ -1,0 +1,58 @@
+.controllers{
+    width: 90%;
+    height: 50px;
+    margin: 0 auto;
+}
+
+
+.controllers{
+    display: flex;
+}
+
+.addRowWrapper{
+    width: 300px;
+    display: flex;
+}
+
+.addRowBtn{
+    width: 60%;
+    height: 50px;
+    background: #4CAF50;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+.addHall{
+    margin-left: 5px;
+    width: 50%;
+    display: flex;
+}
+
+.addRowWrapper{
+    width: 50%;
+}
+
+.manageElements{
+    display: flex;
+    list-style: none;
+    height: 50px;
+}
+
+.changeType{
+    width: 50%;
+    display: flex;
+}
+
+.delete{
+    width: 50%;
+}
+
+.deleteBtn, .changeBtn{
+    width: 30%;
+    height: 50px;
+    background: #4CAF50;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+}
