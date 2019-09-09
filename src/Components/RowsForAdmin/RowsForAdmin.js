@@ -140,6 +140,7 @@ class RowsForAdmin extends Component{
         let rowStartX = 10;
         let rowStartY = 10;
         let radius = 5;
+        this.adaptCanvasSize(rows, radius);
         rows.forEach((element, index) => {
             let row = index;
             element.forEach((value, index) => {
@@ -174,6 +175,10 @@ class RowsForAdmin extends Component{
                 ctx.fill();
             })
         });
+    }
+
+    adaptCanvasSize = (rows, radius) => {
+        
     }
 
     render(){
