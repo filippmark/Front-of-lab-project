@@ -1,29 +1,17 @@
-.schemeWrapper{
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    width: 60%;
-    margin: 50px auto;
-    box-sizing: border-box;
-    padding: 20px;
-}
-
 .scheme{
     height: 500px;
-    width: 90%;
-    border: 2px solid #ccc; 
+    width: 80%;
     overflow: auto;
     margin: 10px auto;
 }
 
-.schemeList{
-    list-style: none;
-    padding: 0px;
-}
-
-.controllers{
+.seatsWrapper{
     width: 90%;
-    height: 50px;
-    margin: 0 auto;
+    height: 350px;
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    overflow: hidden;
+    position: relative;
 }
 
 .screenWrapper{
@@ -44,24 +32,8 @@
     font-size: 2rem;
 }
 
-.rowsWrapper{
-    width: 90%;
-    height: 350px;
-    margin: 10px auto;
-    overflow: auto;
-}
-
-.addRowWrapper{
-    width: 300px;
-    display: flex;
-}
-
-.addRowBtn{
-    width: 100px;
-    height: 50px;
-    background: #4CAF50;
-    border-radius: 10px;
-    cursor: pointer;
-    color: white;
+.schemeList{
+    list-style: none;
+    padding: 0px;
 }
 
