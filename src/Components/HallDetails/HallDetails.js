@@ -7,6 +7,7 @@ class HallDetails extends Component{
     
     state = {
         rows: [],
+        newRows: [],
         amount: '',
         amountOfAllSeats: 0,
         type: '',
@@ -18,59 +19,6 @@ class HallDetails extends Component{
         newType: '',
     }
 
-    componentDidMount(){
-
-    }
-
-    mouseDownHandler = (event) => {
-        console.log('x' + event.x + '. y' + event.y);
-        let canvas = document.getElementById('rowsWrapper');
-        this.state.ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-        let coords = canvas.getBoundingClientRect(); 
-        console.log(event);
-        console.log(coords);
-         this.setState({
-            clicked: true,
-            start: {
-                startX: event.clientX - coords.left,
-                startY: event.clientY - coords.top,
-            },
-        }, 
-            this.drawReactangle);
-    }
-
-    mouseMoveHandler = (event) => {
-        if(this.state.clicked){    
-            let canvas = document.getElementById('canvas');
-            let coords = canvas.getBoundingClientRect(); 
-            console.log(event);
-            this.state.ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-            this.setState({
-                end:{
-                    endX: event.pageX - coords.x,
-                    endY: event.pageY - coords.y
-                }
-            }, this.drawReactangle)
-        }
-    }
-
-    mouseUpHandler = (event) => {
-            let canvas = document.getElementById('canvas');
-            this.state.ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-            this.setState({clicked: false,});
-    }
-
-
-
-    drawReactangle = () => {
-        console.log(this.state);
-        let {startX, startY} = this.state.start;
-        let {endX, endY} = this.state.end;
-        console.log(startX);
-        this.state.ctx.strokeRect(startX, 0, 100, 100);
-        //this.state.ctx.fillRect(startX, startY, endX - startX, endY - startY);
-    }
-
     changeHandle = (event) => {
         console.log(event.target);
         let {name, value} =  event.target;
@@ -80,7 +28,7 @@ class HallDetails extends Component{
     }
 
     addRowHandler = () => {
-        console.log(this.state);
+        console.log(this.state.rows);
         let amount = parseInt(this.state.amount);
         if ((!isNaN(amount)) && (amount > 0) && (this.state.type !== "")){
             let seats = Array.from({length: amount}, (v, k) => ({num: (k + 1), type: this.state.type, row: (this.state.rows.length + 1)}));
@@ -127,10 +75,16 @@ class HallDetails extends Component{
         });
     }
 
+    rowsUpdateHandler = (rows) => {
+        this.setState({
+            newRows: rows
+        });
+    }
+
     render(){
         return(  
             <div className="schemeWrapper">
-                <Scheme isAdminRows={true} rows={this.state.rows} newType={this.state.newType}/>
+                <Scheme isAdminRows={true} rows={this.state.rows} newType={this.state.newType} updater={this.rowsUpdateHandler}/>
                 <ul className="controllers">
                     <li className="addRowWrapper">
                         <input type="text" placeholder="кол-во мест" name="amount" onChange={this.changeHandle}>

@@ -36,6 +36,7 @@
 .manageElements{
     display: flex;
     list-style: none;
+    height: 50px;
 }
 
 .changeType{

@@ -63,10 +63,6 @@ class RowsForAdmin extends Component{
         rows.forEach((row, i) => {
             row.forEach((element, j) => {
                 if (((element.x - x >= 0)) &&((element.x - x) <= width) && ((element.y - y) <= height) && (element.y - y >= 0)){
-                    console.log("kek");
-                    this.setState({
-                        selected: true
-                    });
                     if (element.type !== 'delete'){
                         element.type = "selected";
                     }
@@ -76,7 +72,7 @@ class RowsForAdmin extends Component{
         });
         this.setState({
             rows
-        },this.drawRows(this.state.rows, false));
+        },this.drawRows(this.state.rows, false, ''));
     }
 
     drawRectangle = () => {
@@ -128,16 +124,17 @@ class RowsForAdmin extends Component{
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.newType){
-            this.drawRows(nextProps.rows, true);
-        } else{
-            this.drawRows(nextProps.rows, false);
             this.setState({
-                rows: nextProps.rows
-            })
+                rows: nextProps.rows.slice()
+            }, this.drawRows(nextProps.rows, true, nextProps.newType));
+        } else{
+            this.setState({
+                rows: nextProps.rows.slice()
+            }, this.drawRows(nextProps.rows, false, ''));
         }
     }
 
-    drawRows = (rows, flag) => {
+    drawRows = (rows, flag, newType) => {
         rows = rows.slice();
         let ctx = this.refs.canvas.getContext("2d");
         let rowStartX = 10;
@@ -148,8 +145,9 @@ class RowsForAdmin extends Component{
             element.forEach((value, index) => {
                 ctx.beginPath();        
                 ctx.lineWidth="2";
-                if ((flag) && (value.type === 'selected'))
-                    value.type = this.props.newType;
+                if ((flag) && (value.type === 'selected')){
+                    value.type = newType;
+                }
                 switch(value.type){
                     case 'basic':
                         ctx.fillStyle="#ccc";
@@ -176,7 +174,6 @@ class RowsForAdmin extends Component{
                 ctx.fill();
             })
         });
-        this.setState({rows});
     }
 
     render(){

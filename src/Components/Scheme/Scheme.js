@@ -13,7 +13,7 @@ class Scheme extends Component{
         let rows;
         console.log(this.props);
         if (this.props.isAdminRows){
-            rows = <RowsForAdmin rows={this.props.rows} newType={this.props.newType}/>;
+            rows = <RowsForAdmin rows={this.props.rows} newType={this.props.newType} updater={this.props.updater}/>;
         }else{
             rows = <RowsForUser rows={this.props.rows}/>;
         }
@@ -26,7 +26,6 @@ class Scheme extends Component{
                         </div>
                     </li>
                     <li className="seatsWrapper">
-                        
                         {
                             rows
                         }
