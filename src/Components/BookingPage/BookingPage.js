@@ -55,6 +55,23 @@ class BookingPage extends Component{
                 <div className="bookingSchemeWrapper">
                     <Scheme isAdminRows={false} rows={this.state.rows}/>
                 </div>
+                <div className="bookingInfoWrapper">
+                        <div>
+                            {`Количество билетов: `}
+                        </div>
+                        <div className="bookingSpacer">
+
+                        </div>
+                        <div>
+                            {`Общая сумма заказа:`}
+                        </div>
+                        <div className="bookingSpacer">
+
+                        </div>
+                        <button className="bookTicketsBtn">
+                            Заказать
+                        </button>
+                </div>
             </div>
         );
     }

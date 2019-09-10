@@ -12,29 +12,27 @@ class HallDetails extends Component{
         amountOfAllSeats: 0,
         type: '',
         amountOfRows: 0,
-        clicked: false,
-        start: {},
-        end: {},
         hall: '',
         newType: '',
+        seat: ''
     }
 
     changeHandle = (event) => {
-        console.log(event.target);
         let {name, value} =  event.target;
+        console.log(name);
         this.setState({
             [name]: value
         });
     }
 
     addRowHandler = () => {
-        console.log(this.state.rows);
         let amount = parseInt(this.state.amount);
         if ((!isNaN(amount)) && (amount > 0) && (this.state.type !== "")){
             let seats = Array.from({length: amount}, (v, k) => ({num: (k + 1), type: this.state.type, row: (this.state.rows.length + 1)}));
+            console.log(this.state);
             this.setState({
                 amountOfAllSeats: this.state.amountOfAllSeats + amount,
-                rows: this.state.rows.slice().concat([seats]),
+                newRows: this.state.newRows.slice().concat([seats]),
             });
         }
     }
@@ -63,28 +61,35 @@ class HallDetails extends Component{
         }
     }
 
+   
+
     changeType = () => {
         this.setState({
             newType: this.state.changeType
-        });
+        },() => {this.setState({newType: ''})});
     }
 
     deleteEls = () => {
         this.setState({
             newType: "delete"
-        });
+        }, () => {this.setState({newType: ''})});
     }
 
-    rowsUpdateHandler = (rows) => {
-        this.setState({
-            newRows: rows
-        });
+    copyMatrix = (matrix) => {
+        return matrix.map((row) => {
+            return JSON.parse(JSON.stringify(row));
+        })
+    }
+
+    matrixChangHandle = (matrix) => {
+        let copy =  this.copyMatrix(matrix);
+        this.setState({newRows: copy});
     }
 
     render(){
         return(  
             <div className="schemeWrapper">
-                <Scheme isAdminRows={true} rows={this.state.rows} newType={this.state.newType} updater={this.rowsUpdateHandler}/>
+                <Scheme isAdminRows={true} rows={this.copyMatrix(this.state.newRows)} newType={this.state.newType} updater={this.rowsUpdateHandler} handler={this.matrixChangHandle}/>
                 <ul className="controllers">
                     <li className="addRowWrapper">
                         <input type="text" placeholder="кол-во мест" name="amount" onChange={this.changeHandle}>
@@ -105,7 +110,7 @@ class HallDetails extends Component{
                 </ul>
                 <ul className="manageElements">
                     <li className="changeType">
-                        <select name="changeType" onChange={this.changeHandle}>
+                        <select name="changeType"  onChange={this.changeHandle}>
                             <option> vip </option>
                             <option> basic</option>
                             <option> forPairs </option>
