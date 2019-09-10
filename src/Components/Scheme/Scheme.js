@@ -9,11 +9,18 @@ class Scheme extends Component{
 
     }
 
+    
+    copyMatrix = (matrix) => {
+        return matrix.map((row) => {
+            return JSON.parse(JSON.stringify(row));
+        })
+    }
+
     render(){
         let rows;
         console.log(this.props);
         if (this.props.isAdminRows){
-            rows = <RowsForAdmin rows={this.props.rows} newType={this.props.newType} updater={this.props.updater}/>;
+            rows = <RowsForAdmin rows={this.copyMatrix(this.props.rows)} newType={this.props.newType} handler={this.props.handler}/>;
         }else{
             rows = <RowsForUser rows={this.props.rows}/>;
         }

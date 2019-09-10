@@ -2,7 +2,11 @@
     height: 20px;
     border-radius: 5px;
     margin: 3px;
-    z-index: 2000;
+    cursor: pointer;
+}
+
+.seat:hover{
+    background: rgb(37, 221, 31);
 }
 
 .basic{
