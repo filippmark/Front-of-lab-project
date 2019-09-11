@@ -7,29 +7,89 @@ class BookingPage extends Component{
 
     state ={
         showDetails: {},
-        rows: []
+        rows: [],
+        bookedTickets: [],
+        amountOfBookedTickets: 0,
+        sumOfOrder: 0,
+        prices: []
     }
 
     componentDidMount(){
         let date = new Date(this.props.location.state.date);
         this.setState({
             showDetails: this.props.location.state,
-            date: date
-        },() => {console.log(this.state)});
+            date: date,
+            prices: this.props.location.state.prices
+        }, this.updateScheme());
+    }
 
+    updateScheme = () => {
         axios.post("http://localhost:8080/seats",{
             data: this.props.location.state
         })
         .then((resp) => {
-            console.log(resp.data.seats)
             this.setState({
                 rows: resp.data.seats,
-            })
+                bookedTickets: [],
+                amountOfBookedTickets: 0,
+                sumOfOrder: 0
+            }, () => {console.log(this.state)})
         })
         .catch((err) => {
             console.log(err);
         })
     }
+
+    addTicket = (data, flag) => {
+        let tickets;
+        if (!flag){ 
+            tickets = this.state.bookedTickets.slice().concat(data);
+        }else{
+            let index = this.state.bookedTickets.indexOf(data); 
+            tickets = this.state.bookedTickets.slice();
+            tickets.splice(index, 1);
+        }
+        this.setState({
+            bookedTickets: tickets,
+        }, this.updateInfo)
+    }
+
+    updateInfo = () => {
+        let newAmount = this.state.bookedTickets.length;
+        let newSum = 0;
+        this.state.prices.map((price) => {
+            let counter = 0;
+            let sum = parseInt(price.price);
+            this.state.bookedTickets.forEach((element) => {
+                if(element.type === price.type.toLowerCase()){
+                    counter++;
+                }
+            })
+            newSum = newSum + counter*sum;
+        })
+        this.setState({
+            amountOfBookedTickets: newAmount,
+            sumOfOrder: newSum
+        }, () => {console.log(this.state)});
+    }
+
+
+    bookTickets = () => {
+        if (this.state.bookedTickets.length > 0){
+            axios.post('http://localhost:8080/bookTickets', {
+            showId: this.state.showDetails._id,
+            tickets: this.state.bookedTickets
+            })
+            .then((resp) => {
+                console.log(resp);
+                this.updateScheme();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    }
+
 
     render(){
 
@@ -53,22 +113,22 @@ class BookingPage extends Component{
 
                 </div>
                 <div className="bookingSchemeWrapper">
-                    <Scheme isAdminRows={false} rows={this.state.rows}/>
+                    <Scheme isAdminRows={false} rows={this.state.rows} addTicket={this.addTicket}/>
                 </div>
                 <div className="bookingInfoWrapper">
                         <div>
-                            {`Количество билетов: `}
+                            {`Количество билетов: ${this.state.amountOfBookedTickets}`}
                         </div>
                         <div className="bookingSpacer">
 
                         </div>
                         <div>
-                            {`Общая сумма заказа:`}
+                            {`Общая сумма заказа: ${this.state.sumOfOrder} р.`}
                         </div>
                         <div className="bookingSpacer">
 
                         </div>
-                        <button className="bookTicketsBtn">
+                        <button className="bookTicketsBtn" onClick={this.bookTickets}>
                             Заказать
                         </button>
                 </div>

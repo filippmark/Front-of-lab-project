@@ -28,7 +28,7 @@ class HallDetails extends Component{
     addRowHandler = () => {
         let amount = parseInt(this.state.amount);
         if ((!isNaN(amount)) && (amount > 0) && (this.state.type !== "")){
-            let seats = Array.from({length: amount}, (v, k) => ({num: (k + 1), type: this.state.type, row: (this.state.rows.length + 1)}));
+            let seats = Array.from({length: amount}, (v, k) => ({num: (k + 1), type: this.state.type, row: (this.state.newRows.length + 1)}));
             console.log(this.state);
             this.setState({
                 amountOfAllSeats: this.state.amountOfAllSeats + amount,
@@ -41,13 +41,13 @@ class HallDetails extends Component{
         event.preventDefault();
         console.log(this.props);
         console.log(this.state);
-        if ((this.state.rows.length > 0) && (this.props.town) && (this.props.cinema) && (this.state.hall)){
+        if ((this.state.newRows.length > 0) && (this.props.town) && (this.props.cinema) && (this.state.hall)){
             console.log("xmmm");
             axios.post("http://localhost:8080/newHall", {
             town: this.props.town,
             cinema: this.props.cinema,
             hall: this.state.hall,
-            rows: this.state.rows,
+            rows: this.state.newRows,
             amount: this.state.amountOfAllSeats
             })
             .then((resp) => {

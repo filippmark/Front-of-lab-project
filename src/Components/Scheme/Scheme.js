@@ -18,11 +18,10 @@ class Scheme extends Component{
 
     render(){
         let rows;
-        console.log(this.props);
         if (this.props.isAdminRows){
             rows = <RowsForAdmin rows={this.copyMatrix(this.props.rows)} newType={this.props.newType} handler={this.props.handler}/>;
         }else{
-            rows = <RowsForUser rows={this.props.rows}/>;
+            rows = <RowsForUser rows={this.props.rows} addTicket={this.props.addTicket}/>;
         }
         return(
             <div className="scheme">
