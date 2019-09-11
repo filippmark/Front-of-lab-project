@@ -1,4 +1,5 @@
 .seat{
+    width: 20px;
     height: 20px;
     border-radius: 5px;
     margin: 3px;
@@ -10,18 +11,28 @@
 }
 
 .basic{
-    width: 20px;
     background: #ccc;
 }
 
-.vip{
-    width: 25px;
+.delete, .booked{
+    width: 20px;
     height: 20px;
+    border-radius: 5px;
+    margin: 3px;
+}
+
+.vip{
     background: rgb(218, 241, 4);
 }
 
 .forPairs{
-    width: 30px;
-    height: 20px;
     background: rgb(201, 11, 11);
+}
+
+.booked{
+    background: rgb(37, 13, 173);
+}
+
+.prebooked{
+    background: rgb(37, 221, 31);
 }

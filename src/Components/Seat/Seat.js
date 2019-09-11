@@ -3,24 +3,61 @@ import './Seat.css';
 
 class Seat extends Component{
 
+    state = {
+        id: '', 
+        clicked: false
+    }
 
     componentDidMount(){
-        let element = document.getElementById('seat');
-        element.onmousedown = this.mouseDownHandle;
-        element.onmousemove = this.mouseMoveHandle;
-    }
-    
-    mouseDownHandle = (event) => {
-        console.log('down');
+        let id = `${this.props.data.row}-${this.props.data.num}`;
+        let classOfSeat;
+        if ((this.props.data.type === 'delete') || (this.props.data.type === 'booked')){
+            classOfSeat = this.props.data.type;
+        } else{
+            classOfSeat = `seat ${this.props.data.type}`;
+        }
+        this.setState({
+            id,
+            classOfSeat
+        }, () => {
+            if (this.props.data.type !== 'delete'){
+                let element = document.getElementById(id);
+                element.onclick = this.clickHandler;
+            }
+        });
     }
 
-    mouseMoveHandle = (event) => {
-        console.log('move');
+    componentDidUpdate(prevProps){
+        if(prevProps.data.type !== this.props.data.type){
+            this.setState({
+                classOfSeat: 'booked'
+            })
+        }
     }
+    
+
+    clickHandler = (event) => {
+        let clicked;
+        let classOfSeat;
+        if (!this.state.clicked){
+            this.props.addTicket(this.props.data, false);
+            classOfSeat = 'seat prebooked';
+            clicked = true;
+        }else{
+            this.props.addTicket(this.props.data, true);
+            classOfSeat = `seat ${this.props.data.type}`;
+            clicked = false;
+        }
+        this.setState({
+            classOfSeat,
+            clicked
+        })
+    }
+
 
     render(){
         return(
-            <li className={`seat ${this.props.data.type}`} id={`seat`}>
+            <li className={this.state.classOfSeat} id={this.state.id}>
 
             </li>
         )

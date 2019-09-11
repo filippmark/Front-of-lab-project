@@ -7,7 +7,7 @@ const RowOfSeats = (props) => {
         <ul className="rowOfSeats">
                 {
                     props.data.map((element) => {
-                        return <Seat data={element}/>
+                        return <Seat data={element} addTicket={props.addTicket}/>
                     })
                 }
         </ul>
