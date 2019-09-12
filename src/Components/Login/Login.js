@@ -17,13 +17,13 @@ class Login extends Component{
     componentDidMount(){
         let logged = window.localStorage.getItem("logged");
         console.log(logged);
-        if (logged !== null){
+        /*if (logged !== null){
             let obj = JSON.parse(logged);
             this.setState({
                 logged: true,
                 admin: obj.user.isAdmin
             });
-        }
+        }*/
     }
 
     handleChange = (event) => {

@@ -75,10 +75,15 @@ class BookingPage extends Component{
 
 
     bookTickets = () => {
+        let logged = JSON.parse(window.localStorage.getItem("logged"));
+        console.log(logged);
         if (this.state.bookedTickets.length > 0){
             axios.post('http://localhost:8080/bookTickets', {
             showId: this.state.showDetails._id,
             tickets: this.state.bookedTickets
+            },
+            {
+                headers: {'Authorization': "bearer " + logged.token}
             })
             .then((resp) => {
                 console.log(resp);
