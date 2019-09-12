@@ -20,7 +20,7 @@ class Seat extends Component{
             id,
             classOfSeat
         }, () => {
-            if (this.props.data.type !== 'delete'){
+            if ((this.props.data.type !== 'delete') && (this.props.data.type !== 'booked')){
                 let element = document.getElementById(id);
                 element.onclick = this.clickHandler;
             }
@@ -32,6 +32,8 @@ class Seat extends Component{
             this.setState({
                 classOfSeat: 'booked'
             })
+            let element = document.getElementById(this.state.id);
+            element.onclick = null;
         }
     }
     
