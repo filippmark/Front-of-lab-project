@@ -27,7 +27,7 @@ class Slider extends Component{
         return(
                 <div className="sliderWrapper">
                      <div className="leftArrowWrapper">
-                        <img src={process.env.PUBLIC_URL + "/chevrons/left-chevron.png"} className="leftArrow" onClick={this.previousDate}/>
+                        <img src={process.env.PUBLIC_URL + "/chevrons/left-chevron.png"} className="leftArrow" onClick={this.previousDate} alt="leftArrow"/>
                     </div>
                     <div className="slider">
                         <div className="sliderDateWrapper" style={{'transform': `translateX(${((this.state.currentIndex)*120)}px)`}}>

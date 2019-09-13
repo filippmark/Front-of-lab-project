@@ -25,8 +25,7 @@ class AddShow extends Component{
     }
 
     addShowToServerHandler = (event) => {
-        event.preventDefault();
-        const data = this.state;    
+        event.preventDefault();  
         axios.post("http://localhost:8080/newShow", this.state)
         .then((resp) => {
             console.log(resp);
