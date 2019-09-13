@@ -140,7 +140,12 @@ class Home extends Component{
         axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=77b3d8be3013c77ba5e037900d67013b&language=ru&page=${this.state.page + 1}`
         )
         .then((resp) => {
-            this.setState({data: this.state.data.concat(resp.data.results), amount: this.state.amount + resp.data.results.length, page: this.state.page + 1});
+            this.setState(
+            {
+                data: this.state.data.concat(resp.data.results),
+                amount: this.state.amount + resp.data.results.length,
+                page: this.state.page + 1
+            });
             if (this.state.page === this.state.totalPages){
                 let el = document.getElementById("uploadBtn");
                 el.style.display = "none";

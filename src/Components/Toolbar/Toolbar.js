@@ -5,11 +5,23 @@ import DrawerToggleButton from "../SideDrawer/DrawerToggleButton";
 
 class toolbar extends Component{
     state = {
-
+        logged: false
     }
 
     exitClickHandler = () => {
         localStorage.clear();
+        this.setState({
+            logged: false
+        })
+    }
+
+    componentDidMount(){
+        let logged = window.localStorage.getItem("logged");
+        if (logged !== null){
+            this.setState({
+                logged: true
+            })
+        }
     }
 
     render(){
@@ -25,9 +37,9 @@ class toolbar extends Component{
                     <div className="spacer"/>
                     <div className="toolbar_navigation_items">
                          <ul className = "mainList">
-                            <li> <Link to = '/login' activeStyle={{color: "#B5561C"}}> Войти </Link></li>
-                            <li className="out" onClick={this.exitClickHandler}> Выйти </li>
-                            <li className = "catalog">  <Link to = {'/registration'} activeStyle={{color: "#B5561C"}}> Регистрация </Link></li>
+                            {this.state.logged ? <li> <Link to = '/profile' activeStyle={{color: "#B5561C"}}> Профиль </Link></li> : <li> <Link to = '/login' activeStyle={{color: "#B5561C"}}> Войти </Link></li>}
+                            {this.state.logged ? <li className="out" onClick={this.exitClickHandler}> Выйти </li>: ''}
+                            {this.state.logged ? "" : <li className = "catalog">  <Link to = {'/registration'} activeStyle={{color: "#B5561C"}}> Регистрация </Link></li>}
                          </ul>
                     </div>
                 </nav>
