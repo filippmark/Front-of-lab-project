@@ -14,7 +14,8 @@ class AddShow extends Component{
         time: "", 
         type: "",
         price: "",
-        prices: []
+        prices: [],
+        services: []
     }
 
     handleChange = (event) => {
@@ -80,22 +81,37 @@ class AddShow extends Component{
                     <input type="text" name="time" placeholder="HH:MM" onChange={this.handleChange}/>
                     <input type="submit" value="добавить показ" onClick={this.addShowToServerHandler} />
                 </div>
-                <div className="prices">
-                    <div className="adder">
-                        <select name="type" onChange={this.handleChange}>
-                            <option> VIP </option>
-                            <option> Basic</option>
-                            <option> For pairs </option>
-                        </select>
-                        <input type="text" name="price" onChange={this.handleChange}/> 
-                        <br/>
-                        <input type="submit" value="добавить цену" onClick={this.addPriceHandler}/>
-                        <input type="submit" value="очистить" className="clear" onClick={this.clearPriceHandler}/>
+                <div className="showPricesAndServices">
+                    <div className="prices">
+                        <div className="adder">
+                            <select name="type" onChange={this.handleChange}>
+                                <option> VIP </option>
+                                <option> Basic</option>
+                                <option> For pairs </option>
+                            </select>
+                            <input type="text" name="price" placeholder="цена билета данного типа" onChange={this.handleChange}/> 
+                            <br/>
+                            <input type="submit" value="добавить цену" onClick={this.addPriceHandler}/>
+                            <input type="submit" value="очистить" className="clear" onClick={this.clearPriceHandler}/>
+                        </div>
+                        <div className="cashPrice">
+                            {this.state.prices.map((element) => {
+                                return <Price data = {element} key = {element.price}/>
+                            })}
+                        </div>
                     </div>
-                    <div className="cashPrice">
-                       {this.state.prices.map((element) => {
-                           return <Price data = {element} key = {element.price}/>
-                       })}
+                    <div className="services">
+                        <select name="serviceType" onChange={this.handleChange}>
+                            <option> chips </option>
+                            <option> coca-cola</option>
+                            <option> popcorn </option>
+                            <option> pizza </option>
+                        </select>
+                        <input type="text" name="servicePrice" placeholder="цена услуги" onChange={this.handleChange}/>
+                        <div className="cashService">
+
+                        </div>
+                        <input type="submit" value="добавить услугу"/>
                     </div>
                 </div>
             </div>

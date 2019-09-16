@@ -119,7 +119,7 @@ class HallDetails extends Component{
                             Изменить тип
                         </button>
                     </li>
-                    <li className="delete">
+                    <li className="deleteBtnWrapper">
                         <button className="deleteBtn" onClick={this.deleteEls}>
                             Удалить
                         </button>
