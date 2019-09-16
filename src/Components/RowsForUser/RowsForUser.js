@@ -7,7 +7,7 @@ const RowsForUser = (props) => {
         <div className="rowsWrapper" id="rowsWrapper">
             {
                 props.rows.map((element) => {
-                    return  <RowOfSeats data={element} addTicket={props.addTicket}/>       
+                    return  <RowOfSeats data={element} addTicket={props.addTicket} key={element._id}/>       
                 })
             }
         </div>

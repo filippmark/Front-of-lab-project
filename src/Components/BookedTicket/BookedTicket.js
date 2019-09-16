@@ -13,12 +13,8 @@ class BookedTicket extends Component{
     }
 
     render(){
-        let date;
-        let dateStr;
-        if(this.props.data.show !== null){
-            date = new Date(this.props.data.show.date);
-            dateStr = `${date.getDate() < 10 ? '0' + date.getDate(): date.getDate()}.${date.getMonth() < 10 ? '0' + date.getMonth(): date.getMonth()}`;
-        }
+        date = new Date(this.props.data.show.date);
+        dateStr = `${date.getDate() < 10 ? '0' + date.getDate(): date.getDate()}.${date.getMonth() < 10 ? '0' + date.getMonth(): date.getMonth()}`;
         return(
             <li className = "bookedTicket">
                 <ul className="bookedTicketDetailsList">
