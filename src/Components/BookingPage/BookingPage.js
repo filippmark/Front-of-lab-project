@@ -61,7 +61,7 @@ class BookingPage extends Component{
             let counter = 0;
             let sum = parseInt(price.price);
             this.state.bookedTickets.forEach((element) => {
-                if(element.type === price.type.toLowerCase()){
+                if(element.type.toLowerCase() === price.type.split(" ").join("").toLowerCase()){
                     counter++;
                 }
             })
