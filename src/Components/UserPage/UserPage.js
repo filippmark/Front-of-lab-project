@@ -75,7 +75,7 @@ class UserPage extends Component{
                     <ul className="userBookedTicketsList">
                         {
                             this.state.bookedTickets.map((element) => {
-                                return <BookedTicket data={element}/>
+                                return <BookedTicket data={element} key={element._id}/>
                             })
                         }
                     </ul>
