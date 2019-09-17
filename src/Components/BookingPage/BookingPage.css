@@ -73,3 +73,20 @@
 .bookTicketsBtn:hover{
     background: #4CAF50;
 }
+
+.bookingSchemeLegend{
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+}
+
+.typesList{
+    padding: 0px;
+    list-style: none;
+    display: flex;
+}
+
+.type{
+    display: flex;
+    margin-right: 5px;
+}

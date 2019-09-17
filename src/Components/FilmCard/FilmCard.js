@@ -15,7 +15,7 @@ class FilmCard extends Component{
             <div className="filmCard">
                 <div className="filmPoster">    
                     <Link to={{
-                        pathname: `/filmCatalog/${this.props.data.original_title.split(" ").join("")}`,
+                        pathname: `/filmCatalog/${this.props.data.title.split(" ").join("")}`,
                         state: this.props.data
                     }}>
                         <img src={`http://image.tmdb.org/t/p/w342/${this.props.data.poster_path}`} alt={this.props.data.title}/>
@@ -24,7 +24,7 @@ class FilmCard extends Component{
                 <div className="filmName">     
                     <div>
                         <Link to={{
-                            pathname: `/filmCatalog/${this.props.data.original_title.split(" ").join("")}`,
+                            pathname: `/filmCatalog/${this.props.data.title.split(" ").join("")}`,
                             state: this.props.data
                         }}>
                             {this.props.data.title}
