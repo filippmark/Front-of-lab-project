@@ -15,8 +15,10 @@ class FilmPage extends Component{
     }
 
     componentDidMount(){
-        this.setState({filmName: this.props.match.params.film});
-        this.setState({data: this.props.location.state});
+        this.setState({
+            filmName: this.props.match.params.film,
+            data: this.props.location.state
+        });
         axios.post("http://localhost:8080/filmDates", 
             {value: this.props.location.state.title}
         )

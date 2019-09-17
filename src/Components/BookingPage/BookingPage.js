@@ -101,7 +101,7 @@ class BookingPage extends Component{
         let info;
         if(typeof(this.state.date) === "object"){
             let month = (this.state.date.getMonth() + 1) > 10? (this.state.date.getMonth() + 1) + "": "0" + (this.state.date.getMonth() + 1);
-            info = `${this.props.location.state.town.toUpperCase()}, ${this.props.location.state.cinema.toUpperCase()}, ${this.state.date.getDate() +  '.'  + month },
+            info = `${this.props.location.state.town.toUpperCase()}, ${this.props.location.state.cinema.name.toUpperCase()}, ${this.state.date.getDate() +  '.'  + month },
             ${this.props.location.state.time.toUpperCase()}`;
         }
             
@@ -136,6 +136,31 @@ class BookingPage extends Component{
                         <button className="bookTicketsBtn" onClick={this.bookTickets}>
                             Заказать
                         </button>
+                </div>
+                <div className="bookingSchemeLegend">
+                    <ul className="typesList">
+                        <li className="type">
+                            <div className="seat basic"/> 
+                             - basic 
+                        </li>
+                        <li className="type">
+                            <div className="seat vip"/>
+                            - vip
+                        </li>
+                        <li className="type">
+                            <div className="seat forPairs"/>
+                            - для пар
+                        </li>
+                        <li className="type">
+                            <div className="seat booked"/>
+                            - забронированное
+                        </li>
+                        <li className="type">
+                            <div className="seat prebooked"/>
+                            - выбранное вами 
+                        </li>
+                        
+                    </ul>
                 </div>
             </div>
         );
