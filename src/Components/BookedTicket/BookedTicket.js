@@ -13,24 +13,24 @@ class BookedTicket extends Component{
     }
 
     render(){
-        date = new Date(this.props.data.show.date);
-        dateStr = `${date.getDate() < 10 ? '0' + date.getDate(): date.getDate()}.${date.getMonth() < 10 ? '0' + date.getMonth(): date.getMonth()}`;
+        let date = new Date(this.props.data.show.date);
+        let dateStr = `${date.getDate() < 10 ? '0' + date.getDate(): date.getDate()}.${date.getMonth() < 10 ? '0' + date.getMonth(): date.getMonth()}`;
         return(
             <li className = "bookedTicket">
                 <ul className="bookedTicketDetailsList">
                     <li className="place bookedTicketDetailsItem">
                         <div>
-                            {`${this.props.data.show.town.toUpperCase()}, ${this.props.data.show.cinema.toUpperCase()}`} 
+                            {`${this.props.data.show.town.toUpperCase()}, ${this.props.data.show.cinema.name.toUpperCase()}`} 
                         </div>
                     </li>
                     <li className="movie bookedTicketDetailsItem">
                         <div>
-                        {`${this.props.data.show.movie.toUpperCase()}`}
+                        {`${this.props.data.show.movie.name.toUpperCase()}`}
                         </div>
                     </li>
                     <li className="rowSeat bookedTicketDetailsItem">
                         <div>
-                            {`${this.props.data.show.hall.toUpperCase()}, ряд ${this.props.data.seat.row}, место ${this.props.data.seat.num}`}
+                            {`${this.props.data.show.hall.hallName.toUpperCase()}, ряд ${this.props.data.seat.row}, место ${this.props.data.seat.num}`}
                         </div>
                     </li>
                     <li className="dateTime bookedTicketDetailsItem">

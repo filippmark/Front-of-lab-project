@@ -5,7 +5,7 @@ import './Time.css';
 
 const Time = (props) => {
     return(
-        <Link to={{pathname:`/reservation/${props.data.movie.split(" ").join("")}`, state: props.data}}>
+        <Link to={{pathname:`/reservation/${props.data.movie.name.split(" ").join("")}`, state: props.data}}>
             <div className="time">
                 <div>
                     {props.data.time}

@@ -27,8 +27,14 @@ class Home extends Component{
         axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=77b3d8be3013c77ba5e037900d67013b&language=ru&page=1',
         )
         .then((resp) => {
-            this.setState({data: resp.data.results, amount: resp.data.results.length, page: 1});
-            this.setState({totalPages: resp.data.total_pages});
+            this.setState(
+                {
+                    data: resp.data.results,
+                    amount: resp.data.results.length,
+                    page: 1,
+                    totalPages: resp.data.total_pages
+                }
+            , () => {console.log(this.state)});
         })
         .catch((err) => {
             console.error(err);  
@@ -37,7 +43,6 @@ class Home extends Component{
 
     searchHandler = (event) => {
         event.preventDefault();
-        console.log("-------------");
         let obj = {
             town: this.state.town,
             cinema: this.state.cinema,
@@ -45,9 +50,7 @@ class Home extends Component{
             film: this.state.film,
             amount: this.state.amountPlaces
         }   
-        console.log(obj);
         for (let key in obj){
-            console.log(key);
             if (obj[key] === "")
                 delete obj[key];
             else
@@ -57,6 +60,17 @@ class Home extends Component{
         axios.post("http://localhost:8080/search", obj)
         .then((resp) => {
             console.log(resp);
+            console.log("-------------");
+            this.setState({
+                data: resp.data.data,
+                amount: resp.data.data.length,
+                page: 1,
+                totalPages: 1,
+            }, () => {
+                console.log(this.state);
+                let el = document.getElementById("uploadBtn");
+                el.style.display = "none";
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -102,10 +116,10 @@ class Home extends Component{
                 variants: []
             })
         }
+        this.setState({
+            [name]: value
+        });
         if (value !== ""){
-            this.setState({
-                [name]: value
-            });
             console.log(this.state.previous);
             let element = document.getElementById(name);
             element.style.display = "block";
