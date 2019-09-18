@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import "./BookingPage.css";
 import Scheme from '../Scheme/Scheme';
 import axios from 'axios';
+import Services from "../Services/Services";
 
 class BookingPage extends Component{
 
@@ -9,9 +10,12 @@ class BookingPage extends Component{
         showDetails: {},
         rows: [],
         bookedTickets: [],
+        bookedServices: [],
+        amountOfService: "",
         amountOfBookedTickets: 0,
         sumOfOrder: 0,
-        prices: []
+        prices: [],
+        services: []
     }
 
     componentDidMount(){
@@ -95,6 +99,13 @@ class BookingPage extends Component{
         }
     }
 
+    handleChange = (event) => {
+        const {name, value} = event.target;
+        this.setState({
+            [name]: value
+        });
+    }
+
 
     render(){
 
@@ -120,6 +131,7 @@ class BookingPage extends Component{
                 <div className="bookingSchemeWrapper">
                     <Scheme isAdminRows={false} rows={this.state.rows} addTicket={this.addTicket}/>
                 </div>
+                {this.state.services.length === 0 ?  " " : <Services services={this.state.services}/>}
                 <div className="bookingInfoWrapper">
                         <div>
                             {`Количество билетов: ${this.state.amountOfBookedTickets}`}

@@ -15,7 +15,9 @@ class AddShow extends Component{
         type: "",
         price: "",
         prices: [],
-        services: []
+        services: [],
+        serviceType: "",
+        servicePrice: ""
     }
 
     handleChange = (event) => {
@@ -36,15 +38,10 @@ class AddShow extends Component{
         })
     }
 
-    isEmpty = (obj) => {
-            
-    }
-
     addPriceHandler = (event) => {
         event.preventDefault();
         console.log(this.state);
         if ((this.state.type !== "") && (this.state.price !== "")){
-            console.log("lol_kekekek");
             for (let i = 0; i < this.state.prices.length; i++){
                 if (this.state.prices[i].type === this.state.type)
                     return alert("Цена для данного типа уже есть.")
@@ -54,6 +51,28 @@ class AddShow extends Component{
                 price: this.state.price
             })});
         }
+    }
+
+    addServiceHandler = (event) => {
+        event.preventDefault();
+        console.log(this.state);
+        if ((this.state.serviceType !== "") && (this.state.servicePrice !== "")){
+            for (let i = 0; i < this.state.services.length; i++){
+                if (this.state.services[i].type === this.state.serviceType)
+                    return alert("Цена для данного типа уже есть.")
+            }
+            this.setState({services: this.state.services.concat({
+                type: this.state.serviceType,
+                price: this.state.servicePrice
+            })});
+        }
+    }
+    
+    clearServicesHandler = (event) =>{
+        event.preventDefault();
+        this.setState({
+            services: []
+        });
     }
 
     clearPriceHandler = (event) =>{
@@ -90,28 +109,31 @@ class AddShow extends Component{
                                 <option> For pairs </option>
                             </select>
                             <input type="text" name="price" placeholder="цена билета данного типа" onChange={this.handleChange}/> 
-                            <br/>
                             <input type="submit" value="добавить цену" onClick={this.addPriceHandler}/>
                             <input type="submit" value="очистить" className="clear" onClick={this.clearPriceHandler}/>
                         </div>
                         <div className="cashPrice">
                             {this.state.prices.map((element) => {
-                                return <Price data = {element} key = {element.price}/>
+                                return <Price data = {element} key = {element.type}/>
                             })}
                         </div>
                     </div>
                     <div className="services">
                         <select name="serviceType" onChange={this.handleChange}>
                             <option> chips </option>
-                            <option> coca-cola</option>
+                            <option> water </option>
                             <option> popcorn </option>
-                            <option> pizza </option>
                         </select>
                         <input type="text" name="servicePrice" placeholder="цена услуги" onChange={this.handleChange}/>
                         <div className="cashService">
-
+                            {
+                                this.state.services.map((element) => {
+                                    return <Price data = {element} key = {element.type}/>
+                                })
+                            }
                         </div>
-                        <input type="submit" value="добавить услугу"/>
+                        <input type="submit" value="добавить услугу" className="addService" onClick={this.addServiceHandler}/>
+                        <input type="submit" value="убрать услуги" onClick={this.clearServicesHandler} className="clear"/>
                     </div>
                 </div>
             </div>
