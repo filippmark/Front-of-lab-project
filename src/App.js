@@ -13,6 +13,7 @@ import FilmPage from './Components/FilmPage/FilmPage';
 import Admin from './Components/Admin/Admin';
 import BookingPage from './Components/BookingPage/BookingPage';
 import UserPage from './Components/UserPage/UserPage';
+import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 
 class App extends Component{
 
@@ -34,19 +35,20 @@ class App extends Component{
 
     return (
       <Router>
-        <div className="App">
-          <Toolbar classScroll = {this.state.scrolled ? "scrolled":"toolbar"} drawerClickHandler={this.drawerToggleClickHandler}/>  
-
-          <Switch>
-            <Route exact path = "/" component = {Home}/> 
-            <Route path = "/admin"  component = {Admin}/>
-            <Route path = "/login" component = {Login}/>
-            <Route path = "/registration" component = {Reg}/>
-            <Route path = "/filmCatalog/:film" component = {FilmPage}/>
-            <Route path = "/reservation/:show" component = {BookingPage}/>
-            <Route path = "/profile" component = {UserPage}/>
-          </Switch>
-        </div>
+        <ScrollToTop>
+          <div className="App">
+            <Toolbar classScroll = {this.state.scrolled ? "scrolled":"toolbar"} drawerClickHandler={this.drawerToggleClickHandler}/>  
+            <Switch>
+              <Route exact path = "/" component = {Home}/> 
+              <Route path = "/admin"  component = {Admin}/>
+              <Route path = "/login" component = {Login}/>
+              <Route path = "/registration" component = {Reg}/>
+              <Route path = "/filmCatalog/:film" component = {FilmPage}/>
+              <Route path = "/reservation/:show" component = {BookingPage}/>
+              <Route path = "/profile" component = {UserPage}/>
+            </Switch>
+          </div>
+        </ScrollToTop>
       </Router>
     );
   }  
