@@ -6,15 +6,38 @@ class Services extends Component{
 
     state = {
         price: 0,
-        selected: {}
+        selected: false,
+        selectedObj: {},
+        amount: ""
     }
 
     updatePriceHandler = (data) => {
         this.setState({
             price: data.price,
-            selected: data
+            selectedObj: data,
+            selected: true,
         })
     } 
+
+    handleChange = (event) => {
+        let {name, value} =  event.target;
+        this.setState({
+            [name]: value
+        });
+    }
+
+    addServiceBtnClickHandler = () => {
+        let amount = parseInt(this.state.amount);
+        console.log(this.state.amount);
+        if((!isNaN(amount)) && (this.state.selected)){
+            let sum = parseInt(this.state.selectedObj.price) * amount;
+            this.props.updater({
+                obj: this.state.selectedObj,
+                amount,
+                sum
+            });
+        }
+    }
 
     render(){
         return(
@@ -38,7 +61,7 @@ class Services extends Component{
                         <input type="text" placeholder="количество" name="amount" onChange={this.handleChange}/>
                     </li>
                     <li className="servicesWrapperItem">
-                        <button className="addServiceBtn">
+                        <button className="addServiceBtn" onClick={this.addServiceBtnClickHandler}>
                             Добавить
                         </button>
                     </li>
