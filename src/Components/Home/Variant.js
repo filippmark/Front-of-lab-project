@@ -2,9 +2,9 @@ import React from 'react';
 
 const Variant = (props) => {
     return(
-        <div className="variant" onClick={props.handler} id={props.id}>
-            {props.data}
-        </div>
+            <div className="variant" onClick={props.handler} id={props.id}>
+                {props.data}
+            </div>
     )
 }
 

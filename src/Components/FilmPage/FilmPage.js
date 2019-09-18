@@ -15,6 +15,7 @@ class FilmPage extends Component{
     }
 
     componentDidMount(){
+        console.log(window.scrollY);
         this.setState({
             filmName: this.props.match.params.film,
             data: this.props.location.state
@@ -39,7 +40,10 @@ class FilmPage extends Component{
     }
 
     bookTicketHandler = () => {
-        window.scrollBy(0, window.innerHeight - 70);
+        window.scrollTo({
+            top: window.innerHeight - 70,
+            behavior: "smooth"
+        });
     }    
 
     availableTickets = (date) => {
