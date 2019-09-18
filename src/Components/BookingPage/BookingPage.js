@@ -23,7 +23,8 @@ class BookingPage extends Component{
         this.setState({
             showDetails: this.props.location.state,
             date: date,
-            prices: this.props.location.state.prices
+            prices: this.props.location.state.prices,
+            services: this.props.location.state.services,
         }, this.updateScheme());
     }
 
