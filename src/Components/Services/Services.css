@@ -1,0 +1,28 @@
+.servicesWrapper{
+    width: 90%;
+    padding: 0px;
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    font-size: 1.5rem;
+    list-style: none;
+}
+
+.servicesList{
+    margin-left: 30px;
+    padding: 0px;
+    list-style: none;
+    display: flex;
+}
+
+.servicesWrapperItem{
+    margin-right: 15px;
+    display: flex;
+}
+
+.servicesSpacer{
+    flex: 1;
+}

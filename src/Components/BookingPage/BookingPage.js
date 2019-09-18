@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import "./BookingPage.css";
 import Scheme from '../Scheme/Scheme';
 import axios from 'axios';
+import Services from "../Services/Services";
 
 class BookingPage extends Component{
 
@@ -9,9 +10,12 @@ class BookingPage extends Component{
         showDetails: {},
         rows: [],
         bookedTickets: [],
+        bookedServices: [],
+        amountOfService: "",
         amountOfBookedTickets: 0,
         sumOfOrder: 0,
-        prices: []
+        prices: [],
+        services: []
     }
 
     componentDidMount(){
@@ -19,7 +23,8 @@ class BookingPage extends Component{
         this.setState({
             showDetails: this.props.location.state,
             date: date,
-            prices: this.props.location.state.prices
+            prices: this.props.location.state.prices,
+            services: this.props.location.state.services,
         }, this.updateScheme());
     }
 
@@ -54,6 +59,33 @@ class BookingPage extends Component{
         }, this.updateInfo)
     }
 
+    findService = (data) => {
+        return function(element){
+            return element.obj.type === data.obj.type;
+        }
+    }
+
+    addService = (data) => {
+        console.log("here");
+        if (this.state.bookedServices.findIndex(this.findService(data)) === -1){
+            this.setState({
+                bookedServices: this.state.bookedServices.slice().concat(data),
+            }, this.updateInfo);
+        } else{
+            console.log("here2");
+            let index = this.state.bookedServices.findIndex(this.findService(data));
+            let bookedServices = JSON.parse(JSON.stringify(this.state.bookedServices));
+            let element = bookedServices[index];
+            element.amount += data.amount;
+            element.sum += data.sum;
+            this.setState({
+                bookedServices
+            }, this.updateInfo)
+        }
+    }
+
+
+
     updateInfo = () => {
         let newAmount = this.state.bookedTickets.length;
         let newSum = 0;
@@ -66,6 +98,10 @@ class BookingPage extends Component{
                 }
             })
             newSum = newSum + counter*sum;
+        })
+        this.state.bookedServices.map((service) => {
+            console.log(service);
+            newSum = service.sum + newSum;
         })
         this.setState({
             amountOfBookedTickets: newAmount,
@@ -95,6 +131,13 @@ class BookingPage extends Component{
         }
     }
 
+    handleChange = (event) => {
+        const {name, value} = event.target;
+        this.setState({
+            [name]: value
+        });
+    }
+
 
     render(){
 
@@ -120,6 +163,7 @@ class BookingPage extends Component{
                 <div className="bookingSchemeWrapper">
                     <Scheme isAdminRows={false} rows={this.state.rows} addTicket={this.addTicket}/>
                 </div>
+                {this.state.services.length === 0 ?  " " : <Services services={this.state.services}  updater={this.addService}/>}
                 <div className="bookingInfoWrapper">
                         <div>
                             {`Количество билетов: ${this.state.amountOfBookedTickets}`}
