@@ -3,13 +3,29 @@ import React, {Component} from 'react';
 import './BookedTicket.css';
 
 class BookedTicket extends Component{
-    state = {
-        data: {},
+    
+    calculateSum = () => {
+        let sum = 0;
+        this.props.data.reservations.map((reservation) => {
+            let price = parseInt(this.props.data.show.prices.find(this.findPrice(reservation.seat.type)).price);
+            console.log(price);
+            if(!isNaN(price)){
+                sum += price;
+            }
+        })
+        this.props.data.services.map((service) => {
+            sum += service.sum;
+        })
+        
+        return sum;
     }
 
-    findPrice = (element) => {
-        if(element.type.split(' ').join('').toLowerCase() === this.props.data.seat.type.toLowerCase())
-            return element;
+
+    findPrice = (type) => { 
+        return function(element){
+            if(element.type.split(' ').join('').toLowerCase() === type.toLowerCase())
+                return element;
+        }
     }
 
     render(){
@@ -23,16 +39,37 @@ class BookedTicket extends Component{
                             {`${this.props.data.show.town.toUpperCase()}, ${this.props.data.show.cinema.name.toUpperCase()}`} 
                         </div>
                     </li>
+                    <li className="hall bookedTicketDetailsItem">
+                        <div>
+                            {`${this.props.data.show.hall.hallName.toUpperCase()}`} 
+                        </div>
+                    </li>
                     <li className="movie bookedTicketDetailsItem">
                         <div>
                         {`${this.props.data.show.movie.name.toUpperCase()}`}
                         </div>
                     </li>
                     <li className="rowSeat bookedTicketDetailsItem">
-                        <div>
-                            {`${this.props.data.show.hall.hallName.toUpperCase()}, ряд ${this.props.data.seat.row}, место ${this.props.data.seat.num}`}
-                        </div>
+                        <ul className="bookedTicketsPositionsList">
+                            {
+                                this.props.data.reservations.map((reservation) => {
+                                    return <li className="bookedTicketsPositionsItem"> {`ряд ${reservation.seat.row}, место ${reservation.seat.num}`}</li>
+                                })
+                            }
+                        </ul>
                     </li>
+                    <li className="services bookedTicketDetailsItem">
+                        <ul className="bookedServicesList">
+                            {
+                                this.props.data.services.length === 0 ?
+                                "Услуги не заказаны"
+                                :
+                                this.props.data.services.map((service) => {
+                                    return <li className="bookedServicesItem"> {`услуга ${service.obj.type}, количество ${service.amount}`}</li>
+                                })
+                            }
+                        </ul>
+                    </li>    
                     <li className="dateTime bookedTicketDetailsItem">
                         <div>
                             {`${dateStr}, ${this.props.data.show.time}`}
@@ -40,7 +77,9 @@ class BookedTicket extends Component{
                     </li>
                     <li className="priceOfBookedTicket">
                         <div>
-                            {`${this.props.data.show.prices.find(this.findPrice).price}р.`}
+                            {
+                                `${this.calculateSum()} р.`
+                            }
                         </div>
                     </li>
                 </ul>

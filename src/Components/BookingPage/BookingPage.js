@@ -66,13 +66,11 @@ class BookingPage extends Component{
     }
 
     addService = (data) => {
-        console.log("here");
         if (this.state.bookedServices.findIndex(this.findService(data)) === -1){
             this.setState({
                 bookedServices: this.state.bookedServices.slice().concat(data),
             }, this.updateInfo);
         } else{
-            console.log("here2");
             let index = this.state.bookedServices.findIndex(this.findService(data));
             let bookedServices = JSON.parse(JSON.stringify(this.state.bookedServices));
             let element = bookedServices[index];
@@ -100,13 +98,12 @@ class BookingPage extends Component{
             newSum = newSum + counter*sum;
         })
         this.state.bookedServices.map((service) => {
-            console.log(service);
             newSum = service.sum + newSum;
         })
         this.setState({
             amountOfBookedTickets: newAmount,
             sumOfOrder: newSum
-        }, () => {console.log(this.state)});
+        });
     }
 
 
@@ -116,14 +113,17 @@ class BookingPage extends Component{
         if (this.state.bookedTickets.length > 0){
             axios.post('http://localhost:8080/bookTickets', {
             showId: this.state.showDetails._id,
-            tickets: this.state.bookedTickets
+            tickets: this.state.bookedTickets,
+            services: this.state.bookedServices
             },
             {
                 headers: {'Authorization': "bearer " + logged.token}
             })
             .then((resp) => {
                 console.log(resp);
-                this.updateScheme();
+                this.setState({
+                    bookedServices: [],
+                }, this.updateScheme);
             })
             .catch((err) => {
                 console.log(err);
