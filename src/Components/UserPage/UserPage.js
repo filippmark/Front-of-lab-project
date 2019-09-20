@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import { Redirect } from 'react-router-dom';
 import './UserPage.css';
 import BookedTicket from '../BookedTicket/BookedTicket';
 import axios from 'axios';
@@ -12,12 +12,14 @@ class UserPage extends Component{
     }
 
     componentDidMount(){
-        let logged = JSON.parse(window.localStorage.getItem("logged"));
-        console.log(logged);
-        let element = document.getElementById('activeBtn');
-        this.setState({
-            user: logged.user
-        }, () => {element.click();});
+        if (this.props.logged){
+            let logged = JSON.parse(window.localStorage.getItem("logged"));
+            console.log(logged);
+            let element = document.getElementById('activeBtn');
+            this.setState({
+                user: logged.user
+            }, () => {element.click();});
+        }
     }
 
 
@@ -49,39 +51,43 @@ class UserPage extends Component{
     }
 
     render(){
-        return(
-            <div className="userPageWrapper">
-                <div className="userDetails">
-                    <div className="userPhotoWrapper">
-
+        if (this.props.logged){
+            return(
+                <div className="userPageWrapper">
+                    <div className="userDetails">
+                        <div className="userPhotoWrapper">
+    
+                        </div>
+                        <div className="userInfo">
+                            {this.state.user.email}
+                        </div>
+                        <ul className="bookedTicketsControllers">
+                            <li className="bookedTicketsControllersItem">
+                                <button className="bookedTicketsBtn" id="activeBtn" onClick={this.clickHandler}>
+                                    Активные
+                                </button>    
+                            </li>
+                            <li>
+                                <button className="bookedTicketsBtn" id="pastBtn" onClick={this.clickHandler}>
+                                    Старые
+                                </button>
+                            </li>
+                        </ul>
                     </div>
-                    <div className="userInfo">
-                        {this.state.user.email}
+                    <div className="userBookedTicketsWrapper">
+                        <ul className="userBookedTicketsList">
+                            {
+                                this.state.bookedTickets.map((element) => {
+                                    return <BookedTicket data={element} key={element._id}/>
+                                })
+                            }
+                        </ul>
                     </div>
-                    <ul className="bookedTicketsControllers">
-                        <li className="bookedTicketsControllersItem">
-                            <button className="bookedTicketsBtn" id="activeBtn" onClick={this.clickHandler}>
-                                Активные
-                            </button>    
-                        </li>
-                        <li>
-                            <button className="bookedTicketsBtn" id="pastBtn" onClick={this.clickHandler}>
-                                Старые
-                            </button>
-                        </li>
-                    </ul>
                 </div>
-                <div className="userBookedTicketsWrapper">
-                    <ul className="userBookedTicketsList">
-                        {
-                            this.state.bookedTickets.map((element) => {
-                                return <BookedTicket data={element} key={element._id}/>
-                            })
-                        }
-                    </ul>
-                </div>
-            </div>
-        )
+            )
+        }else{
+            return <Redirect to="/login"/>
+        }
     }
 }
 

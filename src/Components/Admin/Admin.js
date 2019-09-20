@@ -12,7 +12,6 @@ class Admin extends Component{
     state = {
         email: "",
         admin: false,
-        logged: false
     } 
 
 
@@ -22,7 +21,6 @@ class Admin extends Component{
             let object = JSON.parse(logged);
             console.log(object);
             this.setState({
-                logged: true,
                 admin: object.user.isAdmin
             });
         }
@@ -47,18 +45,23 @@ class Admin extends Component{
     }
 
     render(){
-            return(
-                <div className="adminPage">
-                    <div className="addAdmin">
-                        <label> Email пользователя </label>
-                        <input type="text" name="email" onChange={this.handleChange}/>
-                        <input type="submit" value="Сделать администратором" onClick={this.addNewAdmin}/>
+            if(this.state.admin){
+                return(
+                    <div className="adminPage">
+                        <div className="addAdmin">
+                            <label> Email пользователя </label>
+                            <input type="text" name="email" onChange={this.handleChange}/>
+                            <input type="submit" value="Сделать администратором" onClick={this.addNewAdmin}/>
+                        </div>
+                        <CinemaDetails/>
+                        <MovieDetails/>
+                        <ShowDetails/>
                     </div>
-                    <CinemaDetails/>
-                    <MovieDetails/>
-                    <ShowDetails/>
-                </div>
-            )
+                )
+            }else{
+                return <Redirect to="/login"/>
+            }
+            
     }
 }
 

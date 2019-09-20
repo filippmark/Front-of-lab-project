@@ -42,27 +42,17 @@ class Reg extends Component{
             axios.post('http://localhost:8080/reg', this.state
               )
               .then(res => {
-                console.log(res);
-                if (res.status === 200){
-                    if (res.data === "oke") {
-                        this.props.history.push('/login');
-                    } else {
-                        if (!this.state.error){
-                            const errorStr = `${res.data}`
-                            errorDiv.innerText = errorStr;
-                        }
-                    }
-                } 
+                 this.props.history.push('/login');
               })
               .catch(err => {
-                console.error(err);
-                alert('Error logging in please try again');
+                console.log(err);
+                const errorStr = err.response.data.message;
+                errorDiv.innerText = errorStr;
               });
         }
     }
 
     render(){
-        
         return(
             <div className = "reg">
                 <form>

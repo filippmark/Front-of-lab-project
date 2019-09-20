@@ -110,24 +110,28 @@ class BookingPage extends Component{
     bookTickets = () => {
         let logged = JSON.parse(window.localStorage.getItem("logged"));
         console.log(logged);
-        if (this.state.bookedTickets.length > 0){
-            axios.post('http://localhost:8080/bookTickets', {
-            showId: this.state.showDetails._id,
-            tickets: this.state.bookedTickets,
-            services: this.state.bookedServices
-            },
-            {
-                headers: {'Authorization': "bearer " + logged.token}
-            })
-            .then((resp) => {
-                console.log(resp);
-                this.setState({
-                    bookedServices: [],
-                }, this.updateScheme);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        if(logged !== null){
+            if (this.state.bookedTickets.length > 0){
+                axios.post('http://localhost:8080/bookTickets', {
+                showId: this.state.showDetails._id,
+                tickets: this.state.bookedTickets,
+                services: this.state.bookedServices
+                },
+                {
+                    headers: {'Authorization': "bearer " + logged.token}
+                })
+                .then((resp) => {
+                    console.log(resp);
+                    this.setState({
+                        bookedServices: [],
+                    }, this.updateScheme);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            }
+        }else{
+            alert("Авторизуйтесь, пожалуйста, для продолжения!");
         }
     }
 

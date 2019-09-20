@@ -20,15 +20,33 @@ class App extends Component{
   state = {
     sideDrawerOpen: false,
     scrolled: false,
-    top: 0
+    top: 0, 
+    logged: false
   }
 
+  componentDidMount(){
+    let logged = window.localStorage.getItem("logged");
+    if (logged !== null){
+        let object = JSON.parse(logged);
+        console.log(object);
+        this.setState({
+            logged: true
+        });
+    }
+  }
+  
   drawerToggleClickHandler = () => {
     this.setState((prevState) => {
         return {sideDrawerOpen: !prevState.sideDrawerOpen};
     });
     console.log("kek");
   };
+
+  updateLog = (newState) => {
+    this.setState({
+      logged: newState
+    })
+  }
     
   render(){
     let backDrop;
@@ -37,15 +55,15 @@ class App extends Component{
       <Router>
         <ScrollToTop>
           <div className="App">
-            <Toolbar classScroll = {this.state.scrolled ? "scrolled":"toolbar"} drawerClickHandler={this.drawerToggleClickHandler}/>  
+            <Toolbar classScroll = {this.state.scrolled ? "scrolled":"toolbar"} drawerClickHandler={this.drawerToggleClickHandler} logged={this.state.logged} updateLog={this.updateLog}/>  
             <Switch>
-              <Route exact path = "/" component = {Home}/> 
+              <Route exact path = "/" render = {() =>  <Home logged={this.state.logged}/>}/> 
               <Route path = "/admin"  component = {Admin}/>
-              <Route path = "/login" component = {Login}/>
+              <Route path = "/login" render = {() => <Login updateLog={this.updateLog} logged={this.state.logged}/>}/>
               <Route path = "/registration" component = {Reg}/>
               <Route path = "/filmCatalog/:film" component = {FilmPage}/>
               <Route path = "/reservation/:show" component = {BookingPage}/>
-              <Route path = "/profile" component = {UserPage}/>
+              <Route path = "/profile" render = {() => <UserPage logged={this.state.logged}/>}/>
             </Switch>
           </div>
         </ScrollToTop>

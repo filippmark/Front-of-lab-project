@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 import "./Login.css";
 
 class Login extends Component{
@@ -15,65 +15,59 @@ class Login extends Component{
     }
 
     componentDidMount(){
-        let logged = window.localStorage.getItem("logged");
-        console.log(logged);
-        /*if (logged !== null){
-            let obj = JSON.parse(logged);
-            this.setState({
-                logged: true,
-                admin: obj.user.isAdmin
-            });
-        }*/
     }
 
     handleChange = (event) => {
         const {name, value} = event.target;
+        
+        //this.loginUpdate();
         this.setState({
             [name]: value
         });
     }
 
-    handleSubmit = (event) =>{
+    handleSubmit = (event) => {
         event.preventDefault();
-        
         axios.post("http://localhost:8080/login",
             this.state
             )
-            .then(function(res){
+            .then((res) => {
                 console.log(res);
-                if (res.status === 200){
-                    let obj = res.data;
-                    console.log(obj);
-                    window.localStorage.setItem("logged", JSON.stringify(obj));
-                }
+                let obj = res.data;
+                console.log(obj);
+                window.localStorage.setItem("logged", JSON.stringify(obj));  
+                this.props.updateLog(true);
             })
-            .catch(function (error) {
-                console.log(error);
-               /* let errorDiv = document.getElementById("errorDiv");
+            .catch((error) => {
                 console.log(error.response);
-                errorDiv.innerHTML = error.response.data;*/
+               let errorDiv = document.getElementById("errorDiv");
+                console.log(error.response);
+                errorDiv.innerHTML = error.response.data.message;
             });
     }
 
     render(){
-        return(
-            <div className = "login">
-                <form>
-                    <label> Ваш email </label>
-                    <div>
-                        <input type = "text" id = "email" name = "email"  onChange = {this.handleChange} required/>
+            if (this.props.logged){
+                return(<Redirect to="/"/>)
+            }else{
+                return(
+                    <div className = "login">
+                        <form>
+                            <label> Ваш email </label>
+                            <div>
+                                <input type = "text" id = "email" name = "email"  onChange = {this.handleChange} required/>
+                            </div>
+                            <label> Пароль </label>
+                            <input type ="password" id = "password" name = "password" onChange = {this.handleChange} required/>
+                            <div className="err" id="errorDiv"/>
+                            <div className="inWrapper">
+                                <input type = "submit" id = "btn" value = "Войти" onClick = {this.handleSubmit}/>
+                            </div>
+                        </form>
                     </div>
-                    <label> Пароль </label>
-                    <input type ="password" id = "password" name = "password" onChange = {this.handleChange} required/>
-                    <div className="err" id="errorDiv"/>
-                    <div className="inWrapper">
-                        <input type = "submit" id = "btn" value = "Войти" onClick = {this.handleSubmit}/>
-                    </div>
-                </form>
-            </div>
-        )
-        
+                )
+            }
     }
 }
 
-export default Login;
+export default  Login;

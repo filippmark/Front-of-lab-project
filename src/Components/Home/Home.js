@@ -174,6 +174,7 @@ class Home extends Component{
     
 
     render(){
+        if(this.props.logged){
             return(
                 <div className="homePage">
                     <div className="filter">
@@ -224,6 +225,9 @@ class Home extends Component{
                     </div>
                 </div>
             )
+        }else{
+            return <Redirect to="/login"/>
+        }
                     
     }
 
